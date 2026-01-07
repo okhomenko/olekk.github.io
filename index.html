@@ -1,1 +1,352 @@
-Oleksandr's Khomenko Personal Blog
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Oleksandr Khomenko</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f3ed;
+        --ink: #1c1a17;
+        --muted: #6b6460;
+        --accent: #c15a2e;
+        --line: #e2d7cc;
+        --card: #fff7ef;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Manrope", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            1200px circle at 90% 10%,
+            rgba(193, 90, 46, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px circle at 10% 80%,
+            rgba(28, 26, 23, 0.08),
+            transparent 55%
+          ),
+          var(--bg);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 6vw 16px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(247, 243, 237, 0.85);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+
+      .brand {
+        font-family: "Fraunces", serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        transition: all 0.3s ease;
+      }
+
+      nav a:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+        gap: 32px;
+        padding: 32px 6vw 80px;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--line);
+        padding-right: 24px;
+        position: sticky;
+        top: 110px;
+        align-self: start;
+      }
+
+      .sidebar h2 {
+        font-size: 0.85rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 18px;
+        color: var(--muted);
+      }
+
+      .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 18px;
+      }
+
+      .post-list li {
+        padding-bottom: 16px;
+        border-bottom: 1px dashed var(--line);
+      }
+
+      .post-list a {
+        text-decoration: none;
+        color: var(--ink);
+        display: grid;
+        gap: 6px;
+      }
+
+      .post-list span {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .content {
+        display: grid;
+        gap: 28px;
+        animation: rise 0.9s ease both;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        padding: 28px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 18px;
+      }
+
+      .eyebrow {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        color: var(--muted);
+      }
+
+      h1 {
+        font-family: "Fraunces", serif;
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .feature {
+        padding: 18px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: #fffdf9;
+        min-height: 170px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .feature h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .signal {
+        display: grid;
+        gap: 10px;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .signal strong {
+        font-family: "Fraunces", serif;
+        font-size: 1.4rem;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 980px) {
+        main {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+          padding-bottom: 18px;
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">Oleksandr Khomenko</div>
+        <nav>
+          <a href="#">Blog</a>
+        </nav>
+      </header>
+
+      <main>
+        <aside class="sidebar">
+          <h2>All Posts</h2>
+          <ul class="post-list">
+            <li>
+              <a href="#">
+                <strong>Designing tools for focused builders</strong>
+                <span>Oct 14, 2024 · 6 min read</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <strong>Field notes from a week of rapid prototyping</strong>
+                <span>Sep 27, 2024 · 4 min read</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <strong>Shaping a lightweight writing workflow</strong>
+                <span>Sep 2, 2024 · 5 min read</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <strong>Building calm interfaces for complex ideas</strong>
+                <span>Aug 18, 2024 · 7 min read</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <strong>How I document decisions that matter</strong>
+                <span>Jul 30, 2024 · 3 min read</span>
+              </a>
+            </li>
+          </ul>
+        </aside>
+
+        <section class="content">
+          <div class="hero">
+            <div class="eyebrow">Main Features</div>
+            <h1>Codex-style notes for thoughtful product work.</h1>
+            <p>
+              A calm reading experience with a focus on narrative and clarity.
+              The layout keeps the archive visible, while the main story
+              highlights your newest ideas, experiments, and learning moments.
+            </p>
+            <div class="meta-row">
+              <span>Published: Jan 7, 2025</span>
+              <span>Category: Product Systems</span>
+              <span>Read time: 8 minutes</span>
+            </div>
+          </div>
+
+          <div class="feature-grid">
+            <div class="feature">
+              <h3>Structured signal</h3>
+              <p>
+                Highlight core themes with a clear headline, an eyebrow label,
+                and metadata that guides skimming without noise.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Left-rail archive</h3>
+              <p>
+                Keep every post visible and accessible, so visitors can jump
+                straight into the topic they care about.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Editorial warmth</h3>
+              <p>
+                A soft paper palette, serif headlines, and spacious layout evoke
+                a premium magazine feel without over-styling.
+              </p>
+            </div>
+          </div>
+
+          <div class="signal">
+            <strong>What I am exploring right now</strong>
+            <p>
+              Designing rituals that help teams move from raw ideas to shipping
+              stories. I am collecting templates for sprint kickoffs, reflective
+              reviews, and fast prototype sharing.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
