@@ -79,8 +79,10 @@ a:visited {
 }
 
 .home-illustration {
+  box-sizing: border-box;
   display: block;
   width: 100%;
+  max-width: 100%;
   height: auto;
   margin: 18px 0 24px;
 }
@@ -157,6 +159,6 @@ footer {
   }
 
   .home-illustration {
-    display: none;
+    margin: 12px 0 18px;
   }
 }
