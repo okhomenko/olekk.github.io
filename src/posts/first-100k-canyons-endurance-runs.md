@@ -1,12 +1,12 @@
 ---
-title: My First 100K at Canyons
+title: "My First 100K at Canyons"
 description: "A personal story from my first 100K: training on flat Florida trails, blowing up early in the mountains, learning to move downhill, and discovering that slower is faster."
 date: 2025-04-26
 tags:
   - posts
   - running
   - systems
-tagsText: Running, Systems
+tagsText: "Running, endurance, ultramarathon, systems"
 layout: layouts/post.njk
 ---
 
