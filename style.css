@@ -78,6 +78,13 @@ a:visited {
   color: #0b0080;
 }
 
+.home-illustration {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 18px 0 24px;
+}
+
 .meta {
   color: #666;
   font-family: Arial, Helvetica, sans-serif;
