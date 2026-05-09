@@ -2,6 +2,7 @@
 layout: layouts/base.njk
 title: About
 description: Engineering leverage, AI-assisted development, and systems that survive contact with reality.
+permalink: about.html
 ---
 
 # About
