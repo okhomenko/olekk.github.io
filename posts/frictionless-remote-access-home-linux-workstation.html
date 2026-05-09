@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Frictionless remote access to a home Linux workstation — Oleksandr Khomenko</title>
+    <meta
+      name="description"
+      content="A practical note on making a home Linux workstation feel like private infrastructure without public SSH exposure or VPN ceremony."
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header>
+      <p class="site-title"><a href="../">Oleksandr Khomenko</a></p>
+      <p class="tagline">Engineering notes, systems thinking, and practical software work.</p>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../links.html">Links</a>
+        <a href="https://github.com/okhomenko">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <h1>Frictionless remote access to a home Linux workstation</h1>
+        <p class="meta">December 22, 2026 · Linux, SSH, VPN, remote development</p>
+
+        <p>
+          A powerful Linux workstation at home is a very practical form of
+          personal infrastructure. It can run heavier builds, local services,
+          long-lived agent sessions, databases, containers, and experiments
+          without turning a laptop into a hot, noisy compromise.
+        </p>
+
+        <p>The weak point is access.</p>
+
+        <p>
+          When access requires manually connecting a VPN, waiting for it to
+          establish, checking whether DNS works, and then finally opening SSH,
+          the machine starts to feel less like infrastructure and more like a
+          chore. The goal should be simpler:
+        </p>
+
+        <pre><code>ssh home</code></pre>
+
+        <p>That is the whole product requirement.</p>
+
+        <h2>The naive setup</h2>
+
+        <p>
+          The obvious first version is a classic VPN into the home network:
+        </p>
+
+        <pre><code>laptop -&gt; home router VPN -&gt; home LAN -&gt; workstation</code></pre>
+
+        <p>
+          This works. It is also mentally heavier than it looks. Before every SSH
+          session there is a ceremony: open VPN app, connect, wait, verify, then
+          SSH to a private IP or hostname.
+        </p>
+
+        <p>
+          That friction matters. Tools that are technically correct but annoying
+          in the first 30 seconds get used less. The result is predictable: the
+          workstation is powerful, but underused.
+        </p>
+
+        <h2>Do not expose SSH directly</h2>
+
+        <p>
+          One tempting shortcut is to forward a public port to the workstation:
+        </p>
+
+        <pre><code>public internet -&gt; router:22 -&gt; workstation:22</code></pre>
+
+        <p>
+          That removes the VPN step but creates unnecessary attack surface. Even
+          with key-only auth, no passwords, a non-standard port, and something
+          like fail2ban, the machine is now part of the public internet's
+          background radiation.
+        </p>
+
+        <p>
+          For a personal workstation, the better default is no public inbound SSH
+          at all.
+        </p>
+
+        <h2>The better model: private overlay networking</h2>
+
+        <p>
+          A cleaner approach is to put the laptop and workstation on the same
+          private overlay network:
+        </p>
+
+        <pre><code>laptop -&gt; private mesh -&gt; workstation</code></pre>
+
+        <p>
+          The workstation gets a stable private identity. The laptop gets a
+          stable way to reach it. The router becomes less important. The public
+          internet never sees an open SSH port.
+        </p>
+
+        <p>
+          This is where tools like Tailscale, ZeroTier, and similar overlay
+          networks are useful. They turn the problem from "connect to my home
+          network" into "connect to my own device."
+        </p>
+
+        <p>That distinction is important.</p>
+
+        <p>Classic home VPN:</p>
+
+        <pre><code>Connect to the network first, then find the machine.</code></pre>
+
+        <p>Overlay network:</p>
+
+        <pre><code>Address the machine directly.</code></pre>
+
+        <p>
+          For a remote development workstation, the second model is usually
+          better.
+        </p>
+
+        <h2>Keep SSH boring</h2>
+
+        <p>
+          There is no need to make SSH clever. The clean setup is mostly normal
+          OpenSSH with a better network path underneath it.
+        </p>
+
+        <p>Example client config:</p>
+
+        <pre><code>Host home
+  HostName home-linux.example-tailnet.ts.net
+  User alex
+  ServerAliveInterval 30
+  ServerAliveCountMax 3
+  ForwardAgent no
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_ed25519</code></pre>
+
+        <p>Then the daily workflow becomes:</p>
+
+        <pre><code>ssh home</code></pre>
+
+        <p>No IP address. No VPN preflight. No router UI. No public port.</p>
+
+        <h2>Use tmux for session continuity</h2>
+
+        <p>
+          Network access solves only half the problem. Travel Wi-Fi, hotel
+          networks, and cellular handoffs still happen.
+        </p>
+
+        <p>
+          The remote machine should treat the SSH connection as disposable. The
+          actual work should live inside a persistent terminal session:
+        </p>
+
+        <pre><code>tmux new -s work</code></pre>
+
+        <p>Reconnect later with:</p>
+
+        <pre><code>tmux attach -t work</code></pre>
+
+        <p>A useful alias is:</p>
+
+        <pre><code>alias ht='ssh home -t "tmux attach -t work || tmux new -s work"'</code></pre>
+
+        <p>Now the workflow is:</p>
+
+        <pre><code>ht</code></pre>
+
+        <p>
+          If the laptop sleeps, the airplane Wi-Fi collapses, or the hotel router
+          decides to be weird, the work keeps running.
+        </p>
+
+        <h2>When full VPN still makes sense</h2>
+
+        <p>
+          A router VPN is still useful as a fallback. Sometimes the goal is not
+          to reach one workstation, but to behave as if the laptop is physically
+          at home:
+        </p>
+
+        <ul>
+          <li>access to LAN-only devices</li>
+          <li>router admin UI</li>
+          <li>storage appliances</li>
+          <li>printers or scanners</li>
+          <li>services that were never meant to be individually exposed</li>
+        </ul>
+
+        <p>That is a different requirement.</p>
+
+        <p>
+          For routine development, device-to-device access is cleaner. For full
+          home-LAN access, a router VPN is still useful.
+        </p>
+
+        <h2>The practical architecture</h2>
+
+        <p>The setup I like is:</p>
+
+        <pre><code>Primary path:
+  laptop -&gt; private overlay network -&gt; Linux workstation -&gt; tmux
+
+Fallback path:
+  laptop -&gt; router VPN -&gt; home LAN
+
+Avoid:
+  public SSH port forwarding</code></pre>
+
+        <p>
+          This gives the workstation the feel of a small private cloud machine
+          while keeping the operational model simple.
+        </p>
+
+        <p>
+          The real test is not whether the network diagram is elegant. The real
+          test is whether opening a terminal while traveling still feels cheap
+          enough to do casually.
+        </p>
+
+        <p>The target remains:</p>
+
+        <pre><code>ssh home</code></pre>
+
+        <p>Everything else is implementation detail.</p>
+      </article>
+    </main>
+
+    <footer>
+      <a href="../">Home</a> · <a href="../links.html">Links</a>
+    </footer>
+  </body>
+</html>
