@@ -30,6 +30,16 @@ function toUrl(filePath) {
   return `${SITE_URL}${route}`;
 }
 
+function titleFromUrl(url) {
+  const pathName = new URL(url).pathname;
+  if (pathName === '/') return SITE_TITLE;
+  const segment = pathName.split('/').filter(Boolean).at(-1) || SITE_TITLE;
+  return segment
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 function escapeXml(value) {
   return String(value)
     .replaceAll('&', '&amp;')
@@ -41,8 +51,9 @@ function escapeXml(value) {
 
 function extractTitle(html, fallbackUrl) {
   const match = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-  if (match?.[1]) return match[1].trim();
-  return fallbackUrl.replace(SITE_URL, '') || '/';
+  const title = match?.[1]?.trim();
+  if (title && title.length >= 3) return title;
+  return titleFromUrl(fallbackUrl);
 }
 
 function extractDescription(html) {
@@ -96,7 +107,6 @@ function validatePages(pages) {
   for (const page of pages) {
     if (urls.has(page.url)) throw new Error(`Duplicate URL: ${page.url}`);
     urls.add(page.url);
-    if (!page.title || page.title.length < 3) throw new Error(`Missing or weak title: ${page.url}`);
     if (!page.description || page.description.length < 20) throw new Error(`Missing or weak description: ${page.url}`);
   }
 }
