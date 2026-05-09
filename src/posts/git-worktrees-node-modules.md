@@ -1,8 +1,8 @@
 ---
 layout: layouts/post.njk
-title: Git worktrees and the node_modules tax
+title: Git worktrees expose the real cost structure of JavaScript repositories
 date: 2026-05-09
-description: A practical field note on using Git worktrees with large JavaScript repositories without letting node_modules destroy your disk and workflow.
+description: Git worktrees make parallel development cheap, but they also expose the hidden operational cost of large JavaScript dependency trees.
 tags:
   - posts
 tagsText: Git, JavaScript, developer workflow
