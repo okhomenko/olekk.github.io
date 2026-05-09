@@ -155,4 +155,8 @@ footer {
   html {
     font-size: 17px;
   }
+
+  .home-illustration {
+    display: none;
+  }
 }
