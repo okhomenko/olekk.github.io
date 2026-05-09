@@ -1,13 +1,39 @@
 <!doctype html>
 <html lang="en">
   <head>
+    {% set pageTitle = title or site.title %}
+    {% set pageDescription = description or site.description %}
+    {% set canonicalUrl = page.url | absoluteUrl(site.url) %}
+    {% set ogImage = (ogImage or site.defaultOgImage) | absoluteUrl(site.url) %}
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ title or "Oleksandr Khomenko" }}</title>
-    <meta
-      name="description"
-      content="{{ description or 'Engineering systems, AI-assisted development, and software organizations under real constraints.' }}"
-    />
+
+    <title>{{ pageTitle }}</title>
+
+    <meta name="description" content="{{ pageDescription }}" />
+    <link rel="canonical" href="{{ canonicalUrl }}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ pageTitle }}" />
+    <meta property="og:description" content="{{ pageDescription }}" />
+    <meta property="og:url" content="{{ canonicalUrl }}" />
+    <meta property="og:image" content="{{ ogImage }}" />
+    <meta property="og:site_name" content="{{ site.title }}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ pageTitle }}" />
+    <meta name="twitter:description" content="{{ pageDescription }}" />
+    <meta name="twitter:image" content="{{ ogImage }}" />
+
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Feed" href="{{ '/feed.xml' | absoluteUrl(site.url) }}" />
+
+    {% if structuredData %}
+    <script type="application/ld+json">
+{{ structuredData | json | safe }}
+    </script>
+    {% endif %}
+
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
