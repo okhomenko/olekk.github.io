@@ -1,7 +1,7 @@
 ---
 layout: layouts/post.njk
 title: Architecture is the cost structure of change
-date: 2026-05-09
+date: 2025-11-18
 description: Architecture matters because it determines how expensive each future product change becomes.
 tags:
   - posts
