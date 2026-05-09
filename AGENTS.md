@@ -16,6 +16,52 @@ Current publishing model:
 - Generated output: `_site/`
 - Deployment: GitHub Actions Pages workflow
 
+## Editorial positioning
+
+This site should read like a public operating manual for engineering leverage: architecture, AI-assisted development, development infrastructure, and the organizational mechanics that determine whether software teams get faster or slower over time.
+
+The voice should be direct, concrete, systems-oriented, and personal only when the personal detail explains a decision, tradeoff, or changed belief.
+
+Good posts should show at least one of these:
+
+- a real engineering or operating problem
+- the mechanism that makes the problem happen
+- a clear tradeoff and decision rule
+- a reusable operating principle
+- technical taste under constraints
+
+Avoid posts that are only notes, tool summaries, generic optimism, preferences without consequences, or lessons without a sharp point.
+
+## Voice rules
+
+Prefer this pattern:
+
+```text
+Claim -> mechanism -> failure mode -> operating principle -> concrete rule
+```
+
+Good sentence openings:
+
+- `The failure mode is...`
+- `The useful distinction is...`
+- `The tradeoff is...`
+- `The rule I use is...`
+- `The mistake is...`
+- `The metric that matters is...`
+
+Avoid soft openings unless uncertainty is real:
+
+- `I think...`
+- `Maybe...`
+- `Just...`
+- `In my opinion...`
+- `Recently I was exploring...`
+- `This post is about...`
+
+Operator tone means decision pressure, not executive theater. Connect technical choices to throughput, cost of change, review cost, reliability, risk, ownership, or learning speed.
+
+Senior engineering tone means naming mechanisms and boundaries. Do not merely say something is important. Explain what breaks when it is missing.
+
 ## Adding a blog post
 
 When adding a new post:
@@ -23,8 +69,9 @@ When adding a new post:
 1. Create a Markdown file under `src/posts/`.
 2. Use frontmatter matching existing posts.
 3. Use the shared post layout.
-4. Keep writing direct and practical.
-5. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
+4. Start with a thesis, not background.
+5. Include a decision rule or operating principle.
+6. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
 
 Expected post structure:
 
@@ -33,13 +80,29 @@ Expected post structure:
 layout: layouts/post.njk
 title: Example title
 date: 2026-01-01
-description: One sentence summary.
+description: One sentence summary with a point of view.
 tags:
   - posts
 tagsText: Topic, Topic
 ---
 
-Post content.
+Opening thesis.
+
+## The common mistake
+
+What people usually get wrong.
+
+## The mechanism
+
+Why the problem actually happens.
+
+## The tradeoff
+
+What is gained, what is lost, and what is not free.
+
+## The rule I use
+
+A concrete operating principle.
 ```
 
 ## Content constraints
@@ -60,6 +123,8 @@ Prefer:
 - minimal generated markup
 - code blocks where useful
 - short paragraphs
+- crisp claims
+- explicit tradeoffs
 
 Avoid:
 
@@ -68,6 +133,8 @@ Avoid:
 - unnecessary frontend frameworks
 - fragile generated markup
 - personal or company-specific details
+- vague thought-leadership language
+- motivational filler
 
 ## Before committing
 
