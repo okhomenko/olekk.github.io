@@ -4,19 +4,14 @@ import path from 'node:path';
 const SITE_URL = 'https://olekk.com';
 const SITE_TITLE = 'Oleksandr Khomenko';
 const SITE_DESCRIPTION = 'Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.';
-const ROOT = process.cwd();
+const OUTPUT_DIR = path.resolve(process.cwd(), process.argv[2] || '_site');
 const TODAY = new Date().toISOString().slice(0, 10);
-
-const SKIP_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts']);
 
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
   const files = [];
 
   for (const entry of entries) {
-    if (entry.name.startsWith('.') && entry.name !== '.well-known') continue;
-    if (entry.isDirectory() && SKIP_DIRS.has(entry.name)) continue;
-
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...await walk(fullPath));
@@ -29,7 +24,7 @@ async function walk(dir) {
 }
 
 function toUrl(filePath) {
-  const relative = path.relative(ROOT, filePath).replaceAll(path.sep, '/');
+  const relative = path.relative(OUTPUT_DIR, filePath).replaceAll(path.sep, '/');
   const dir = path.dirname(relative);
   const route = dir === '.' ? '/' : `/${dir}/`;
   return `${SITE_URL}${route}`;
@@ -57,7 +52,7 @@ function extractDescription(html) {
 }
 
 async function buildPages() {
-  const htmlFiles = await walk(ROOT);
+  const htmlFiles = await walk(OUTPUT_DIR);
   const pages = [];
 
   for (const filePath of htmlFiles) {
@@ -94,7 +89,7 @@ function buildLlms(pages) {
 
 function validatePages(pages) {
   if (pages.length === 0) {
-    throw new Error('No index.html pages found. SEO artifacts would be empty.');
+    throw new Error(`No index.html pages found in ${OUTPUT_DIR}. Run Eleventy before generating SEO artifacts.`);
   }
 
   const urls = new Set();
@@ -106,11 +101,12 @@ function validatePages(pages) {
   }
 }
 
+await fs.access(OUTPUT_DIR);
 const pages = await buildPages();
 validatePages(pages);
 
-await fs.writeFile(path.join(ROOT, 'sitemap.xml'), buildSitemap(pages));
-await fs.writeFile(path.join(ROOT, 'feed.xml'), buildFeed(pages));
-await fs.writeFile(path.join(ROOT, 'llms.txt'), buildLlms(pages));
+await fs.writeFile(path.join(OUTPUT_DIR, 'sitemap.xml'), buildSitemap(pages));
+await fs.writeFile(path.join(OUTPUT_DIR, 'feed.xml'), buildFeed(pages));
+await fs.writeFile(path.join(OUTPUT_DIR, 'llms.txt'), buildLlms(pages));
 
-console.log(`Generated SEO files for ${pages.length} pages.`);
+console.log(`Generated SEO files in ${OUTPUT_DIR} for ${pages.length} pages.`);
