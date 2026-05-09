@@ -1,8 +1,8 @@
 ---
 layout: layouts/post.njk
-title: Separate Unix users for agentic development
+title: AI coding agents need identity boundaries
 date: 2026-02-12
-description: A practical note on using separate Linux accounts to keep AI coding agents, credentials, and development contexts from bleeding into each other.
+description: Shared Unix accounts turn AI-assisted development into a pile of ambient authority, credential bleed, and hidden state.
 tags:
   - posts
 tagsText: Linux, SSH, AI agents, developer workflow
