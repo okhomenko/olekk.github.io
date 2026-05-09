@@ -7,9 +7,6 @@ on:
       - seo-foundation
   pull_request:
 
-permissions:
-  contents: write
-
 jobs:
   generate-seo:
     runs-on: ubuntu-latest
@@ -17,34 +14,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
       - name: Generate SEO artifacts
-        run: node scripts/generate-seo.mjs
+        run: node scripts/generate-seo.mjs _site
 
       - name: Verify generated files
         run: |
-          test -f sitemap.xml
-          test -f feed.xml
-          test -f llms.txt
-
-      - name: Commit generated SEO files
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'chore(seo): regenerate sitemap/feed/llms'
-          file_pattern: sitemap.xml feed.xml llms.txt
+          test -f _site/sitemap.xml
+          test -f _site/feed.xml
+          test -f _site/llms.txt
 
       - name: Upload SEO artifacts
         uses: actions/upload-artifact@v4
         with:
           name: seo-artifacts
           path: |
-            sitemap.xml
-            feed.xml
-            llms.txt
+            _site/sitemap.xml
+            _site/feed.xml
+            _site/llms.txt
