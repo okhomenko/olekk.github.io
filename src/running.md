@@ -18,10 +18,13 @@ This section is where I write about running, endurance, and the lessons that tra
 <h2>Posts</h2>
 
 <ul class="posts">
-  <li>
-    <a href="/posts/first-100k-canyons-endurance-runs/">My First 100K at Canyons</a>
-    <p class="description">
-      A personal story from my first 100K: flat Florida training, blown quads in the mountains, learning downhill movement with poles, and discovering that slower is faster.
-    </p>
-  </li>
+  {% for post in collections.running | reverse %}
+    <li>
+      <a href="{{ post.url }}">{{ post.data.title }}</a>
+      <time datetime="{{ post.date | htmlDateString }}">
+        {{ post.date | readableDate }}
+      </time>
+      <p class="description">{{ post.data.description }}</p>
+    </li>
+  {% endfor %}
 </ul>
