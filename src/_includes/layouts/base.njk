@@ -2,7 +2,11 @@
 <html lang="en">
   <head>
     {% set pageTitle = title or site.title %}
-    {% set fullTitle = pageTitle == site.title ? site.title : pageTitle + ' | ' + site.title %}
+    {% if pageTitle == site.title %}
+      {% set fullTitle = site.title %}
+    {% else %}
+      {% set fullTitle = pageTitle + ' | ' + site.title %}
+    {% endif %}
     {% set pageDescription = description or site.description %}
     {% set canonicalUrl = page.url | absoluteUrl(site.url) %}
     {% set ogImage = (ogImage or site.defaultOgImage) | absoluteUrl(site.url) %}
