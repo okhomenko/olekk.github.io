@@ -66,3 +66,35 @@ npm ci --prefer-offline
 ```
 
 The npm cache avoids redownloading packages, but it does not remove the fundamental disk cost: every worktree gets a physically materialized `node_modules` tree. For two worktrees, acceptable. For ten agent branches, painful.
+
+## The agent workflow
+
+Worktrees are especially useful when multiple coding agents or experiments are in flight. The rule is that no agent works in the main checkout. Every task gets a branch, a worktree, a clean install, and a disposable lifecycle.
+
+```text
+main/                  # stable human checkout
+wt/codex-issue-1842/   # agent task
+wt/claude-router-v7/   # agent task
+wt/manual-cleanup/     # human experiment
+```
+
+Cleanup matters. Dead worktrees are not harmless. They keep dependency installs, build output, test output, generated files, and stale local state around long after the branch stopped mattering.
+
+```bash
+git worktree list
+git worktree remove ../wt/agent-123
+git worktree prune
+pnpm store prune
+```
+
+## The rule I use
+
+Share caches, not working directories. Share the pnpm store, npm cache, Docker layer cache, or remote build cache. Do not share `node_modules`, `dist`, generated clients, coverage output, or local database state. That boundary keeps the workflow fast without destroying correctness.
+
+## References
+
+- [Git worktree documentation](https://git-scm.com/docs/git-worktree)
+- [pnpm motivation](https://pnpm.io/motivation)
+- [npm ci documentation](https://docs.npmjs.com/cli/v10/commands/npm-ci)
+- [Corepack documentation](https://nodejs.org/api/corepack.html)
+- [Turborepo documentation](https://turbo.build/repo/docs)
