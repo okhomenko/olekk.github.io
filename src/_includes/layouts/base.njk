@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Oleksandr Khomenko" }}</title>
+    <meta
+      name="description"
+      content="{{ description or 'Engineering notes, systems thinking, and practical software work by Oleksandr Khomenko.' }}"
+    />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <p class="site-title"><a href="/">Oleksandr Khomenko</a></p>
+      <p class="tagline">Engineering notes, systems thinking, and practical software work.</p>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/links.html">Links</a>
+        <a href="https://github.com/okhomenko">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      {{ content | safe }}
+    </main>
+
+    <footer>
+      Plain HTML. Durable links. Generated with Eleventy.
+    </footer>
+  </body>
+</html>
