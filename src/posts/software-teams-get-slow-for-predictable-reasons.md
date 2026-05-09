@@ -1,7 +1,7 @@
 ---
 layout: layouts/post.njk
 title: Software teams get slow for predictable reasons
-date: 2026-05-09
+date: 2025-08-14
 description: Most engineering slowdowns are not mysterious. They are accumulated coordination costs hiding behind technical systems.
 tags:
   - posts
