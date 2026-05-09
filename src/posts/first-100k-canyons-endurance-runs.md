@@ -10,6 +10,8 @@ tagsText: "Running, endurance, ultramarathon, systems"
 layout: layouts/post.njk
 ---
 
+# My First 100K at Canyons
+
 In April 2025 I ran my first 100K at Canyons Endurance Runs.
 
 I had trained for it in Orlando, Florida, which is a strange place to prepare for a mountain race. My long runs came from flat roads, humid mornings, swamp trails, and time with the O-Town Blazers. There were no real climbs. There were no long technical descents. There was heat, dirt, roots, water, and repetition.
