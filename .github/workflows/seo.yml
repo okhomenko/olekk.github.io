@@ -1,0 +1,45 @@
+name: SEO Generation
+
+on:
+  push:
+    branches:
+      - main
+      - seo-foundation
+  pull_request:
+
+jobs:
+  generate-seo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build site
+        run: npm run build
+
+      - name: Generate SEO artifacts
+        run: node scripts/generate-seo.mjs _site
+
+      - name: Verify generated files
+        run: |
+          test -f _site/sitemap.xml
+          test -f _site/feed.xml
+          test -f _site/llms.txt
+
+      - name: Upload SEO artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-artifacts
+          path: |
+            _site/sitemap.xml
+            _site/feed.xml
+            _site/llms.txt

@@ -5,7 +5,8 @@ date: 2025-04-26
 tags:
   - posts
   - running
-tagsText: "Running, endurance, ultramarathon"
+  - systems
+tagsText: "Running, endurance, ultramarathon, systems"
 layout: layouts/post.njk
 ---
 

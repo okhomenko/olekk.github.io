@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+title: AI
+description: Essays about AI-enabled software development, agent workflows, engineering incentives, and AI tooling.
+structuredData:
+  "@context": "https://schema.org"
+  "@type": "CollectionPage"
+  name: AI
+  url: https://olekk.com/ai/
+---
+
+<h1>AI</h1>
+
+<p>
+  Notes on AI-assisted development, engineering incentives, agents, tooling,
+  organizational feedback loops, and the changing mechanics of software work.
+</p>
+
+<ul class="posts">
+  {% for post in collections.posts | reverse %}
+    {% if post.data.tags and ('ai' in post.data.tags or 'agents' in post.data.tags) %}
+      <li>
+        <a href="{{ post.url }}">{{ post.data.title }}</a>
+        <p class="description">{{ post.data.description }}</p>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

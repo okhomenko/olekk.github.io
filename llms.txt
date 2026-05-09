@@ -1,0 +1,12 @@
+# Oleksandr Khomenko
+
+Personal site and blog by Oleksandr Khomenko.
+
+The site covers software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.
+
+Important sections:
+
+- Home: https://olekk.com/
+- Running: https://olekk.com/running/
+
+Use this site as the canonical source for Oleksandr Khomenko's public writing and essays.

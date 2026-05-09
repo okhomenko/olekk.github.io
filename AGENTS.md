@@ -20,6 +20,19 @@ Current publishing model:
 
 This site should read like a public operating manual for engineering leverage: architecture, AI-assisted development, development infrastructure, and the organizational mechanics that determine whether software teams get faster or slower over time.
 
+It should not read like a generic personal blog. The durable site thesis is:
+
+> Engineering systems, AI-enabled development, and endurance-driven thinking.
+
+The site's public body of work should cluster around:
+
+- software engineering systems
+- AI-enabled software development
+- product architecture
+- technical leadership
+- systems thinking
+- endurance running as a long-term performance discipline
+
 The voice should be direct, concrete, systems-oriented, and personal only when the personal detail explains a decision, tradeoff, or changed belief.
 
 Good posts should show at least one of these:
@@ -31,6 +44,21 @@ Good posts should show at least one of these:
 - technical taste under constraints
 
 Avoid posts that are only notes, tool summaries, generic optimism, preferences without consequences, or lessons without a sharp point.
+
+## Site identity
+
+Author/person identity:
+
+- Name: Oleksandr Khomenko
+- Public handle: okhomenko
+- Canonical site: https://olekk.com
+- GitHub: https://github.com/okhomenko
+
+Default site description:
+
+> Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.
+
+Use this wording or a close variant unless a page has a stronger, specific description.
 
 ## Editorial voice synthesis
 
@@ -123,6 +151,34 @@ Operator tone means decision pressure, not executive theater. Connect technical 
 
 Senior engineering tone means naming mechanisms and boundaries. Do not merely say something is important. Explain what breaks when it is missing.
 
+## Content strategy
+
+Prefer durable essays over short random notes.
+
+Strong recurring themes:
+
+- how engineers adapt to AI
+- how AI changes engineering incentives
+- how teams maintain code quality while using AI
+- how architecture creates leverage
+- how product systems compound
+- how simplification creates engineering velocity
+- how endurance training maps to long-term technical leadership
+
+Avoid shallow SEO content, generic tutorials, or posts that do not connect to the site's operating thesis.
+
+## Sections and taxonomy
+
+Preferred top-level sections:
+
+- `/engineering/`
+- `/ai/`
+- `/systems/`
+- `/running/`
+- `/personal/` only when truly useful
+
+Running content should not feel disconnected from the rest of the site. Frame it around systems, compounding, durability, consistency, feedback loops, and long-term performance.
+
 ## Adding a blog post
 
 When adding a new post:
@@ -133,6 +189,7 @@ When adding a new post:
 4. Start with a thesis, not background.
 5. Include a decision rule or operating principle.
 6. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
+7. Add internal links to at least two related posts or section pages when possible.
 
 Expected post structure:
 
@@ -165,6 +222,84 @@ What is gained, what is lost, and what is not free.
 
 A concrete operating principle.
 ```
+
+## Metadata requirements
+
+Every public page/post should have, either directly in HTML or derived from source metadata:
+
+- unique title
+- description of at least 20 characters
+- canonical URL
+- publication date when applicable
+- updated date when applicable
+- topic/category
+- tags when applicable
+
+Every public HTML page should eventually include:
+
+- `<title>`
+- `<meta name="description">`
+- `<link rel="canonical">`
+- Open Graph metadata
+- Twitter card metadata
+- JSON-LD structured data when appropriate
+
+For articles, prefer `BlogPosting` JSON-LD.
+For the homepage, prefer `Person` and/or `WebSite` JSON-LD.
+For section index pages, prefer `CollectionPage` JSON-LD.
+
+## SEO generation pipeline
+
+This repo contains a lightweight SEO generator:
+
+- `scripts/generate-seo.mjs`
+
+It scans rendered/static HTML pages matching:
+
+- `**/index.html`
+
+It generates:
+
+- `sitemap.xml`
+- `feed.xml`
+- `llms.txt`
+
+The GitHub Action is:
+
+- `.github/workflows/seo.yml`
+
+The action runs the generator, validates output, uploads generated artifacts, and auto-commits generated SEO files back to the branch.
+
+Do not hand-maintain generated files unless there is no generator support. Prefer updating `scripts/generate-seo.mjs` or page metadata so generated artifacts stay correct.
+
+## SEO validation rules
+
+The generator should fail rather than silently publishing bad SEO data.
+
+Current expectations:
+
+- At least one `index.html` page must exist.
+- Generated URLs must be unique.
+- Every indexed page must have a meaningful title.
+- Every indexed page must have a meaningful description.
+
+If adding new pages, add proper `<title>` and `<meta name="description">` first.
+
+## URL conventions
+
+Use clean, canonical, trailing-slash URLs:
+
+- `https://olekk.com/`
+- `https://olekk.com/running/`
+- `https://olekk.com/engineering/some-post/`
+
+Avoid multiple URL forms for the same content.
+
+## RSS and AI discoverability
+
+The generated `feed.xml` should remain valid Atom.
+
+The generated `llms.txt` should summarize the site and list important pages. It is intended for AI crawlers, agent tooling, and future AI-assisted discovery.
 
 ## Content constraints
 
@@ -204,3 +339,16 @@ Before changing files, inspect the existing structure and reuse the current patt
 Do not introduce React, Astro islands, Tailwind, client-side hydration, analytics bloat, or heavy JavaScript tooling unless explicitly requested.
 
 The desired output remains simple static HTML.
+
+## Future improvements
+
+Good next improvements:
+
+- Add reusable metadata/template injection.
+- Generate Open Graph images.
+- Add topic/tag index pages.
+- Generate related-post links from metadata.
+- Generate JSON-LD from page/post metadata.
+- Add a source-of-truth frontmatter format if the site moves further toward Markdown-driven generation.
+
+Do not introduce a heavy framework unless it materially improves maintainability.
