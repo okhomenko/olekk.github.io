@@ -2,8 +2,11 @@
 title: My First 100K at Canyons
 description: A personal story from my first 100K: training on flat Florida trails, blowing up early in the mountains, learning to move downhill, and discovering that slower is faster.
 date: 2025-04-26
-tags: posts
-layout: layouts/base.njk
+tags:
+  - posts
+  - running
+tagsText: Running, endurance, ultramarathon
+layout: layouts/post.njk
 ---
 
 # My First 100K at Canyons
