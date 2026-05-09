@@ -7,6 +7,9 @@ on:
       - seo-foundation
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   generate-seo:
     runs-on: ubuntu-latest
@@ -14,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -22,6 +27,18 @@ jobs:
 
       - name: Generate SEO artifacts
         run: node scripts/generate-seo.mjs
+
+      - name: Verify generated files
+        run: |
+          test -f sitemap.xml
+          test -f feed.xml
+          test -f llms.txt
+
+      - name: Commit generated SEO files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(seo): regenerate sitemap/feed/llms'
+          file_pattern: sitemap.xml feed.xml llms.txt
 
       - name: Upload SEO artifacts
         uses: actions/upload-artifact@v4
