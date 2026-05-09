@@ -3,11 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Oleksandr Khomenko</title>
+    <title>Git Worktrees and the node_modules Tax | Oleksandr Khomenko</title>
+    <meta
+      name="description"
+      content="A practical field note on using Git worktrees with large JavaScript repositories without letting node_modules destroy your disk and workflow."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -18,10 +22,15 @@
         --accent: #c15a2e;
         --line: #e2d7cc;
         --card: #fff7ef;
+        --code: #27231f;
       }
 
       * {
         box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
@@ -42,6 +51,12 @@
           var(--bg);
       }
 
+      a {
+        color: var(--accent);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
       .page {
         min-height: 100vh;
         display: grid;
@@ -52,9 +67,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 20px;
         padding: 28px 6vw 16px;
         border-bottom: 1px solid var(--line);
-        background: rgba(247, 243, 237, 0.85);
+        background: rgba(247, 243, 237, 0.88);
         backdrop-filter: blur(8px);
         position: sticky;
         top: 0;
@@ -67,10 +83,16 @@
         letter-spacing: 0.02em;
       }
 
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
       nav a {
         text-decoration: none;
         color: var(--ink);
-        font-weight: 600;
+        font-weight: 700;
         padding: 6px 12px;
         border-radius: 999px;
         border: 1px solid var(--line);
@@ -84,8 +106,8 @@
 
       main {
         display: grid;
-        grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
-        gap: 32px;
+        grid-template-columns: minmax(220px, 290px) minmax(0, 1fr);
+        gap: 36px;
         padding: 32px 6vw 80px;
       }
 
@@ -101,48 +123,60 @@
         font-size: 0.85rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        margin-bottom: 18px;
+        margin: 0 0 18px;
         color: var(--muted);
       }
 
-      .post-list {
+      .post-list,
+      .link-list {
         list-style: none;
         padding: 0;
         margin: 0;
         display: grid;
-        gap: 18px;
+        gap: 14px;
       }
 
-      .post-list li {
-        padding-bottom: 16px;
+      .post-list li,
+      .link-list li {
+        padding-bottom: 14px;
         border-bottom: 1px dashed var(--line);
       }
 
-      .post-list a {
+      .post-list a,
+      .link-list a {
         text-decoration: none;
         color: var(--ink);
         display: grid;
-        gap: 6px;
+        gap: 5px;
       }
 
-      .post-list span {
+      .post-list span,
+      .link-list span {
         font-size: 0.85rem;
         color: var(--muted);
+        line-height: 1.5;
       }
 
       .content {
         display: grid;
         gap: 28px;
+        max-width: 920px;
         animation: rise 0.9s ease both;
+      }
+
+      .hero,
+      article,
+      .callout,
+      .resources {
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 18px;
       }
 
       .hero {
         display: grid;
         gap: 18px;
-        padding: 28px;
-        border: 1px solid var(--line);
-        background: var(--card);
-        border-radius: 18px;
+        padding: 30px;
       }
 
       .eyebrow {
@@ -152,58 +186,53 @@
         color: var(--muted);
       }
 
+      h1,
+      h2,
+      h3 {
+        font-family: "Fraunces", serif;
+      }
+
       h1 {
-        font-family: "Fraunces", serif;
-        font-size: clamp(2rem, 3vw, 3rem);
+        font-size: clamp(2.2rem, 4vw, 4.2rem);
+        line-height: 1.03;
         margin: 0;
       }
 
-      .hero p {
-        font-size: 1.05rem;
-        line-height: 1.7;
-        margin: 0;
+      h2 {
+        font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+        margin: 36px 0 12px;
+      }
+
+      h3 {
+        font-size: 1.3rem;
+        margin: 28px 0 10px;
+      }
+
+      p,
+      li {
+        font-size: 1.03rem;
+        line-height: 1.78;
+      }
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      article {
+        background: rgba(255, 253, 249, 0.92);
+        padding: 30px;
+      }
+
+      article ul,
+      article ol {
+        margin-top: 8px;
+        padding-left: 24px;
+      }
+
+      .lede {
+        font-size: 1.17rem;
         color: var(--muted);
-      }
-
-      .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .feature {
-        padding: 18px;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        background: #fffdf9;
-        min-height: 170px;
-        display: grid;
-        gap: 10px;
-      }
-
-      .feature h3 {
-        margin: 0;
-        font-size: 1.1rem;
-      }
-
-      .feature p {
-        margin: 0;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-
-      .signal {
-        display: grid;
-        gap: 10px;
-        padding: 20px;
-        border-radius: 16px;
-        border: 1px solid var(--line);
-        background: #fff;
-      }
-
-      .signal strong {
-        font-family: "Fraunces", serif;
-        font-size: 1.4rem;
+        max-width: 72ch;
       }
 
       .meta-row {
@@ -212,6 +241,61 @@
         gap: 16px;
         color: var(--muted);
         font-size: 0.95rem;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", monospace;
+        background: rgba(28, 26, 23, 0.08);
+        padding: 0.15rem 0.35rem;
+        border-radius: 6px;
+      }
+
+      pre {
+        margin: 18px 0 24px;
+        padding: 18px;
+        overflow-x: auto;
+        border-radius: 14px;
+        background: var(--code);
+        color: #fff7ef;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      pre code {
+        background: transparent;
+        color: inherit;
+        padding: 0;
+      }
+
+      .callout,
+      .resources {
+        padding: 22px;
+      }
+
+      .callout {
+        background: #fffdf9;
+      }
+
+      .callout strong {
+        display: block;
+        font-family: "Fraunces", serif;
+        font-size: 1.35rem;
+        margin-bottom: 8px;
+      }
+
+      .resources {
+        background: #fff;
+      }
+
+      .resources h2 {
+        margin-top: 0;
+      }
+
+      .verdict {
+        border-left: 4px solid var(--accent);
+        padding: 14px 18px;
+        background: rgba(193, 90, 46, 0.08);
+        border-radius: 0 12px 12px 0;
       }
 
       @keyframes rise {
@@ -234,11 +318,7 @@
           position: static;
           border-right: none;
           border-bottom: 1px solid var(--line);
-          padding-bottom: 18px;
-        }
-
-        .feature-grid {
-          grid-template-columns: 1fr;
+          padding: 0 0 22px;
         }
       }
 
@@ -246,7 +326,13 @@
         header {
           flex-direction: column;
           align-items: flex-start;
-          gap: 12px;
+        }
+
+        .hero,
+        article,
+        .callout,
+        .resources {
+          padding: 22px;
         }
       }
     </style>
@@ -255,95 +341,215 @@
     <div class="page">
       <header>
         <div class="brand">Oleksandr Khomenko</div>
-        <nav>
-          <a href="#">Blog</a>
+        <nav aria-label="Primary">
+          <a href="#post">Post</a>
+          <a href="#resources">Links</a>
         </nav>
       </header>
 
       <main>
         <aside class="sidebar">
-          <h2>All Posts</h2>
+          <h2>Post</h2>
           <ul class="post-list">
             <li>
-              <a href="#">
-                <strong>Designing tools for focused builders</strong>
-                <span>Oct 14, 2024 · 6 min read</span>
+              <a href="#post">
+                <strong>Git worktrees and the node_modules tax</strong>
+                <span>May 9, 2026 · engineering workflow</span>
+              </a>
+            </li>
+          </ul>
+
+          <h2 style="margin-top: 32px">Useful links</h2>
+          <ul class="link-list">
+            <li>
+              <a href="https://git-scm.com/docs/git-worktree">
+                <strong>git worktree docs</strong>
+                <span>The canonical reference for adding, listing, pruning, and removing worktrees.</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <strong>Field notes from a week of rapid prototyping</strong>
-                <span>Sep 27, 2024 · 4 min read</span>
+              <a href="https://pnpm.io/motivation">
+                <strong>Why pnpm exists</strong>
+                <span>Good explanation of pnpm's content-addressed store and dependency layout.</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <strong>Shaping a lightweight writing workflow</strong>
-                <span>Sep 2, 2024 · 5 min read</span>
+              <a href="https://docs.npmjs.com/cli/v10/commands/npm-ci">
+                <strong>npm ci</strong>
+                <span>The safer npm command for reproducible installs in clean worktrees.</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <strong>Building calm interfaces for complex ideas</strong>
-                <span>Aug 18, 2024 · 7 min read</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <strong>How I document decisions that matter</strong>
-                <span>Jul 30, 2024 · 3 min read</span>
+              <a href="https://nodejs.org/api/corepack.html">
+                <strong>Corepack</strong>
+                <span>Useful for pinning package manager versions across worktrees and agents.</span>
               </a>
             </li>
           </ul>
         </aside>
 
-        <section class="content">
+        <section class="content" id="post">
           <div class="hero">
-            <div class="eyebrow">Main Features</div>
-            <h1>Codex-style notes for thoughtful product work.</h1>
-            <p>
-              A calm reading experience with a focus on narrative and clarity.
-              The layout keeps the archive visible, while the main story
-              highlights your newest ideas, experiments, and learning moments.
+            <div class="eyebrow">Engineering workflow</div>
+            <h1>Git worktrees and the <code>node_modules</code> tax</h1>
+            <p class="lede">
+              Worktrees are one of the cleanest ways to run parallel branches, experiments,
+              and AI-agent tasks. They also expose the ugliest part of large JavaScript
+              repositories: every isolated checkout wants its own dependency universe.
             </p>
             <div class="meta-row">
-              <span>Published: Jan 7, 2025</span>
-              <span>Category: Product Systems</span>
-              <span>Read time: 8 minutes</span>
+              <span>Published: May 9, 2026</span>
+              <span>Topic: Git, JavaScript, developer experience</span>
+              <span>Read time: 6 minutes</span>
             </div>
           </div>
 
-          <div class="feature-grid">
-            <div class="feature">
-              <h3>Structured signal</h3>
-              <p>
-                Highlight core themes with a clear headline, an eyebrow label,
-                and metadata that guides skimming without noise.
-              </p>
-            </div>
-            <div class="feature">
-              <h3>Left-rail archive</h3>
-              <p>
-                Keep every post visible and accessible, so visitors can jump
-                straight into the topic they care about.
-              </p>
-            </div>
-            <div class="feature">
-              <h3>Editorial warmth</h3>
-              <p>
-                A soft paper palette, serif headlines, and spacious layout evoke
-                a premium magazine feel without over-styling.
-              </p>
-            </div>
-          </div>
-
-          <div class="signal">
-            <strong>What I am exploring right now</strong>
+          <article>
             <p>
-              Designing rituals that help teams move from raw ideas to shipping
-              stories. I am collecting templates for sprint kickoffs, reflective
-              reviews, and fast prototype sharing.
+              A Git worktree gives you another working directory attached to the same repository.
+              Instead of constantly switching branches, stashing local changes, or letting an AI
+              agent mutate your main checkout, you create a separate directory per task.
             </p>
+
+            <pre><code>git worktree add ../wt/refactor-router -b refactor/router
+cd ../wt/refactor-router</code></pre>
+
+            <p>
+              The win is obvious: branch isolation without cloning the repository again. The trap
+              is less obvious until you do it in a serious frontend codebase. Each worktree is a
+              separate project root, so package managers normally create a separate
+              <code>node_modules</code> tree for each one.
+            </p>
+
+            <pre><code>repo-main/
+  node_modules/
+
+wt/refactor-router/
+  node_modules/
+
+wt/agent-pricing/
+  node_modules/
+
+wt/bugfix-vite/
+  node_modules/</code></pre>
+
+            <h2>The real problem is mutable sharing</h2>
+            <p>
+              The naive optimization is to symlink <code>node_modules</code> from one worktree into
+              another. That feels clever for about ten minutes. Then one branch upgrades Vite,
+              another changes a generated client, a third pulls a native dependency, and now the
+              filesystem lies about what each branch actually depends on.
+            </p>
+
+            <p class="verdict">
+              Do not share mutable project directories across worktrees. Share immutable caches.
+              Keep each worktree's working directory honest.
+            </p>
+
+            <h2>The better model</h2>
+            <p>
+              The clean pattern is simple: use one worktree per task, install dependencies per
+              worktree, and rely on a content-addressed package store to avoid paying the full
+              disk and network cost each time. This is where <a href="https://pnpm.io/">pnpm</a>
+              is much better suited than plain npm for large worktree-heavy repos.
+            </p>
+
+            <pre><code>corepack enable
+pnpm config set store-dir ~/.pnpm-store
+
+mkdir -p ~/code/product/wt
+cd ~/code/product/main
+
+git worktree add ../wt/agent-123 -b agent/123
+cd ../wt/agent-123
+pnpm install --frozen-lockfile</code></pre>
+
+            <p>
+              You still see a <code>node_modules</code> directory in every worktree. That is fine.
+              The important part is that package contents are reused through pnpm's store rather
+              than copied as a completely independent dependency tree every time.
+            </p>
+
+            <h2>For npm-only repositories</h2>
+            <p>
+              If the repo is still on npm, worktrees are not wrong; they are just more expensive.
+              Use <code>npm ci</code> instead of casual <code>npm install</code> so the worktree matches
+              the lockfile exactly.
+            </p>
+
+            <pre><code>npm ci --prefer-offline</code></pre>
+
+            <p>
+              The npm cache avoids redownloading packages, but it does not remove the fundamental
+              disk cost: every worktree gets a physically materialized <code>node_modules</code> tree.
+              For two worktrees, acceptable. For ten agent branches, painful.
+            </p>
+
+            <h2>The agent workflow</h2>
+            <p>
+              Worktrees are especially useful when multiple coding agents or experiments are in
+              flight. The rule is that no agent works in the main checkout. Every task gets a
+              branch, a worktree, a clean install, and a disposable lifecycle.
+            </p>
+
+            <pre><code>main/                  # stable human checkout
+wt/codex-issue-1842/   # agent task
+wt/claude-router-v7/   # agent task
+wt/manual-cleanup/     # human experiment</code></pre>
+
+            <p>
+              Cleanup matters. Dead worktrees are not harmless. They keep dependency installs,
+              build output, test output, generated files, and stale local state around long after
+              the branch stopped mattering.
+            </p>
+
+            <pre><code>git worktree list
+git worktree remove ../wt/agent-123
+git worktree prune
+pnpm store prune</code></pre>
+
+            <h2>The rule I use</h2>
+            <p>
+              Share caches, not working directories. Share the pnpm store, npm cache, Docker layer
+              cache, or remote build cache. Do not share <code>node_modules</code>, <code>dist</code>,
+              generated clients, coverage output, or local database state. That boundary keeps the
+              workflow fast without destroying correctness.
+            </p>
+          </article>
+
+          <div class="callout">
+            <strong>Practical default</strong>
+            <p>
+              For large TypeScript repos: Git worktrees + pnpm + frozen lockfile + one branch per
+              agent/task + aggressive cleanup. That combination gives you isolation, speed, and a
+              disk story that does not become absurd after a week.
+            </p>
+          </div>
+
+          <div class="resources" id="resources">
+            <h2>Links</h2>
+            <ul>
+              <li>
+                <a href="https://git-scm.com/docs/git-worktree">Git worktree documentation</a>
+                — official commands and behavior.
+              </li>
+              <li>
+                <a href="https://pnpm.io/motivation">pnpm motivation</a>
+                — why pnpm uses a content-addressed store instead of copying packages everywhere.
+              </li>
+              <li>
+                <a href="https://docs.npmjs.com/cli/v10/commands/npm-ci">npm ci documentation</a>
+                — reproducible clean installs for npm-based repos.
+              </li>
+              <li>
+                <a href="https://nodejs.org/api/corepack.html">Corepack documentation</a>
+                — package-manager version management built into modern Node.js.
+              </li>
+              <li>
+                <a href="https://turbo.build/repo/docs">Turborepo documentation</a>
+                — useful reference if you also want content-addressed task caching.
+              </li>
+            </ul>
           </div>
         </section>
       </main>
