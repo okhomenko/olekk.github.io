@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Git worktrees and the node_modules tax — Oleksandr Khomenko</title>
+    <meta
+      name="description"
+      content="A practical field note on using Git worktrees with large JavaScript repositories without letting node_modules destroy your disk and workflow."
+    />
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <header>
+      <p class="site-title"><a href="../">Oleksandr Khomenko</a></p>
+      <p class="tagline">Engineering notes, systems thinking, and practical software work.</p>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../links.html">Links</a>
+        <a href="https://github.com/okhomenko">GitHub</a>
+      </nav>
+    </header>
+
+    <main>
+      <article>
+        <h1>Git worktrees and the <code>node_modules</code> tax</h1>
+        <p class="meta">May 9, 2026 · Git, JavaScript, developer workflow</p>
+
+        <p>
+          Git worktrees are one of the cleanest ways to run parallel branches,
+          experiments, and coding-agent tasks. They also expose the ugliest part
+          of large JavaScript repositories: every isolated checkout wants its own
+          dependency universe.
+        </p>
+
+        <p>
+          A worktree gives you another working directory attached to the same
+          repository. Instead of constantly switching branches, stashing local
+          changes, or letting an agent mutate your main checkout, you create a
+          separate directory per task.
+        </p>
+
+        <pre><code>git worktree add ../wt/refactor-router -b refactor/router
+cd ../wt/refactor-router</code></pre>
+
+        <p>
+          The win is obvious: branch isolation without cloning the repository
+          again. The trap is less obvious until you do it in a serious frontend
+          codebase. Each worktree is a separate project root, so package managers
+          normally create a separate <code>node_modules</code> tree for each one.
+        </p>
+
+        <pre><code>repo-main/
+  node_modules/
+
+wt/refactor-router/
+  node_modules/
+
+wt/agent-pricing/
+  node_modules/
+
+wt/bugfix-vite/
+  node_modules/</code></pre>
+
+        <h2>The real problem is mutable sharing</h2>
+
+        <p>
+          The naive optimization is to symlink <code>node_modules</code> from one
+          worktree into another. That feels clever for about ten minutes. Then
+          one branch upgrades Vite, another changes a generated client, a third
+          pulls a native dependency, and now the filesystem lies about what each
+          branch actually depends on.
+        </p>
+
+        <blockquote>
+          Do not share mutable project directories across worktrees. Share
+          immutable caches. Keep each worktree's working directory honest.
+        </blockquote>
+
+        <h2>The better model</h2>
+
+        <p>
+          The clean pattern is simple: use one worktree per task, install
+          dependencies per worktree, and rely on a content-addressed package
+          store to avoid paying the full disk and network cost each time. This is
+          where <a href="https://pnpm.io/">pnpm</a> is much better suited than
+          plain npm for large worktree-heavy repositories.
+        </p>
+
+        <pre><code>corepack enable
+pnpm config set store-dir ~/.pnpm-store
+
+mkdir -p ~/code/product/wt
+cd ~/code/product/main
+
+git worktree add ../wt/agent-123 -b agent/123
+cd ../wt/agent-123
+pnpm install --frozen-lockfile</code></pre>
+
+        <p>
+          You still see a <code>node_modules</code> directory in every worktree.
+          That is fine. The important part is that package contents are reused
+          through pnpm's store rather than copied as a completely independent
+          dependency tree every time.
+        </p>
+
+        <h2>For npm-only repositories</h2>
+
+        <p>
+          If the repo is still on npm, worktrees are not wrong; they are just
+          more expensive. Use <code>npm ci</code> instead of casual
+          <code>npm install</code> so the worktree matches the lockfile exactly.
+        </p>
+
+        <pre><code>npm ci --prefer-offline</code></pre>
+
+        <p>
+          The npm cache avoids redownloading packages, but it does not remove the
+          fundamental disk cost: every worktree gets a physically materialized
+          <code>node_modules</code> tree. For two worktrees, acceptable. For ten
+          agent branches, painful.
+        </p>
+
+        <h2>The agent workflow</h2>
+
+        <p>
+          Worktrees are especially useful when multiple coding agents or
+          experiments are in flight. The rule is that no agent works in the main
+          checkout. Every task gets a branch, a worktree, a clean install, and a
+          disposable lifecycle.
+        </p>
+
+        <pre><code>main/                  # stable human checkout
+wt/codex-issue-1842/   # agent task
+wt/claude-router-v7/   # agent task
+wt/manual-cleanup/     # human experiment</code></pre>
+
+        <p>
+          Cleanup matters. Dead worktrees are not harmless. They keep dependency
+          installs, build output, test output, generated files, and stale local
+          state around long after the branch stopped mattering.
+        </p>
+
+        <pre><code>git worktree list
+git worktree remove ../wt/agent-123
+git worktree prune
+pnpm store prune</code></pre>
+
+        <h2>The rule I use</h2>
+
+        <p>
+          Share caches, not working directories. Share the pnpm store, npm cache,
+          Docker layer cache, or remote build cache. Do not share
+          <code>node_modules</code>, <code>dist</code>, generated clients, coverage
+          output, or local database state. That boundary keeps the workflow fast
+          without destroying correctness.
+        </p>
+
+        <h2>References</h2>
+        <ul>
+          <li><a href="https://git-scm.com/docs/git-worktree">Git worktree documentation</a></li>
+          <li><a href="https://pnpm.io/motivation">pnpm motivation</a></li>
+          <li><a href="https://docs.npmjs.com/cli/v10/commands/npm-ci">npm ci documentation</a></li>
+          <li><a href="https://nodejs.org/api/corepack.html">Corepack documentation</a></li>
+          <li><a href="https://turbo.build/repo/docs">Turborepo documentation</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <a href="../">Home</a> · <a href="../links.html">Links</a>
+    </footer>
+  </body>
+</html>
