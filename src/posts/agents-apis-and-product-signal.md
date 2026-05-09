@@ -1,7 +1,7 @@
 ---
 title: Agents, APIs, and the Product Signal We Are About to Lose
 description: When agents call our APIs, we must capture the user's real goal, not only the final tool call.
-date: 2026-05-09
+date: 2026-04-12
 tags: posts
 layout: layouts/base.njk
 ---
