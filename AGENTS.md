@@ -32,6 +32,67 @@ Good posts should show at least one of these:
 
 Avoid posts that are only notes, tool summaries, generic optimism, preferences without consequences, or lessons without a sharp point.
 
+## Editorial voice synthesis
+
+Write with a synthesized founder/operator voice: direct product-company writing plus approachable category-building essays. Do not imitate any specific person. Capture the useful traits, not the surface mannerisms.
+
+The desired voice:
+
+- blunt but not performative
+- plainspoken but not simplistic
+- founder-level practical, not academic
+- skeptical of bloat, ceremony, and fake sophistication
+- optimistic about better systems, but intolerant of vague optimism
+- comfortable saying the simple thing when the simple thing is true
+- interested in how tools change behavior, incentives, markets, and product learning
+
+Use a strong, simple thesis early. Then prove it with an ordinary example.
+
+Good pattern:
+
+```text
+Simple claim.
+Concrete example.
+What most teams miss.
+Why it matters.
+The operating rule.
+```
+
+Prefer lines that sound like operating advice:
+
+- `Do not confuse usage with understanding.`
+- `The API worked. The product still learned nothing.`
+- `The bug is not in the endpoint. The bug is in the feedback loop.`
+- `If the agent owns the conversation, the product must fight to preserve intent.`
+- `A clean tool call can hide a messy customer problem.`
+- `Do not automate away the signal you need to build the next product.`
+
+Avoid inflated strategy language when a simple sentence works.
+
+Instead of:
+
+```text
+The AI transition risks severing the feedback loop between user intent and product evolution.
+```
+
+Prefer:
+
+```text
+If agents turn customer goals into silent API calls, product teams stop seeing what customers actually wanted.
+```
+
+Instead of:
+
+```text
+This creates a strategic disintermediation risk for SaaS vendors.
+```
+
+Prefer:
+
+```text
+The agent gets the conversation. The SaaS product gets the API call. That is a bad trade.
+```
+
 ## Voice rules
 
 Prefer this pattern:
