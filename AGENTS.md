@@ -4,47 +4,42 @@ Instructions for AI coding agents working in this repository.
 
 ## Site model
 
-This is a deliberately simple static HTML site hosted from GitHub Pages.
+This site is generated with Eleventy (11ty) and deployed through GitHub Pages.
 
-Do **not** assume a framework, build step, or generator unless the repository is explicitly changed to add one.
+The repository intentionally produces plain static HTML output with minimal framework complexity.
 
 Current publishing model:
 
-- Homepage: `index.html`
-- Styles: `style.css`
-- Static pages: root-level `*.html`
-- Blog posts: `posts/*.html`
-
-Do not create Jekyll-style `_posts/*.md` posts unless the site is intentionally migrated to Jekyll and the homepage/build pipeline is updated accordingly.
+- Source content: `src/`
+- Layouts/includes: `src/_includes/`
+- Blog posts: `src/posts/*.md`
+- Generated output: `_site/`
+- Deployment: GitHub Actions Pages workflow
 
 ## Adding a blog post
 
 When adding a new post:
 
-1. Create a static HTML file under `posts/`.
-2. Match the structure of existing posts.
-3. Link `../style.css` from the post.
-4. Include the standard header/nav/footer used by existing posts.
-5. Add the post to the `Posts` list in `index.html`.
-6. Keep the homepage list in reverse chronological order.
-7. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
+1. Create a Markdown file under `src/posts/`.
+2. Use frontmatter matching existing posts.
+3. Use the shared post layout.
+4. Keep writing direct and practical.
+5. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
 
-Expected post path format:
+Expected post structure:
 
-```text
-posts/descriptive-slug.html
-```
+```md
+---
+layout: layouts/post.njk
+title: Example title
+date: 2026-01-01
+description: One sentence summary.
+tags:
+  - posts
+tagsText: Topic, Topic
+---
 
-Expected homepage entry shape:
-
-```html
-<li>
-  <a href="posts/descriptive-slug.html">Post title</a>
-  <time datetime="YYYY-MM-DD">Month D, YYYY</time>
-  <p class="description">
-    One or two sentence summary.
-  </p>
-</li>
+Post content.
 ```
 
 ## Content constraints
@@ -62,7 +57,7 @@ Prefer:
 - concrete mechanisms
 - simple examples
 - durable links
-- plain HTML
+- minimal generated markup
 - code blocks where useful
 - short paragraphs
 
@@ -70,12 +65,14 @@ Avoid:
 
 - marketing tone
 - exaggerated claims
-- unnecessary frameworks
+- unnecessary frontend frameworks
 - fragile generated markup
 - personal or company-specific details
 
 ## Before committing
 
-Before changing files, inspect the existing structure and reuse the current pattern. Do not introduce a new content system casually.
+Before changing files, inspect the existing structure and reuse the current pattern.
 
-Before finishing, verify that any new post is reachable from `index.html`.
+Do not introduce React, Astro islands, Tailwind, client-side hydration, analytics bloat, or heavy JavaScript tooling unless explicitly requested.
+
+The desired output remains simple static HTML.
