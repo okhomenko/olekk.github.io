@@ -1,0 +1,16 @@
+---
+layout: layouts/base.njk
+---
+
+<article>
+  <h1>{{ title }}</h1>
+
+  <p class="meta">
+    <time datetime="{{ date | htmlDateString }}">
+      {{ date | readableDate }}
+    </time>
+    {% if tagsText %} · {{ tagsText }}{% endif %}
+  </p>
+
+  {{ content | safe }}
+</article>
