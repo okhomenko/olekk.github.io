@@ -1,0 +1,151 @@
+html {
+  font-size: 18px;
+}
+
+body {
+  max-width: 760px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #111;
+  background: #fff;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1.55;
+}
+
+header {
+  margin-bottom: 36px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 18px;
+}
+
+.site-title {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+  line-height: 1.1;
+  font-weight: normal;
+}
+
+.site-title a {
+  color: #111;
+  text-decoration: none;
+}
+
+.tagline {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+nav {
+  margin-top: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+}
+
+nav a {
+  margin-right: 14px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 12px;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin-top: 34px;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 4px;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin-top: 26px;
+}
+
+a {
+  color: #0645ad;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+.meta {
+  color: #666;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  margin-bottom: 26px;
+}
+
+.posts {
+  list-style: none;
+  padding: 0;
+}
+
+.posts li {
+  margin: 0 0 20px;
+}
+
+.posts time {
+  display: block;
+  color: #666;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  margin-top: 3px;
+}
+
+.description {
+  margin: 4px 0 0;
+  color: #333;
+}
+
+.links li {
+  margin-bottom: 8px;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 14px 16px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  line-height: 1.4;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.9em;
+}
+
+blockquote {
+  margin: 20px 0;
+  padding-left: 16px;
+  border-left: 3px solid #ccc;
+  color: #333;
+}
+
+footer {
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid #ddd;
+  color: #666;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  body {
+    margin-top: 24px;
+  }
+
+  html {
+    font-size: 17px;
+  }
+}
