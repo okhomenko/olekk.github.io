@@ -1,7 +1,7 @@
 ---
 layout: layouts/post.njk
 title: Good infrastructure reduces the cognitive cost of doing the right thing
-date: 2026-05-09
+date: 2024-10-03
 description: The best infrastructure systems are not the most sophisticated. They are the ones that make correct behavior cheap and routine.
 tags:
   - posts
