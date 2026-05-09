@@ -1,26 +1,16 @@
 ---
 title: Agents, APIs, and the Product Signal We Are About to Lose
-description: If agents become the main interface to software, execution APIs are not enough. Product teams need to preserve user intent before agents compress it into tool calls.
+description: When agents call our APIs, we must capture the user's real goal, not only the final tool call.
 date: 2026-05-09
 tags: posts
 layout: layouts/base.njk
 ---
 
-The dangerous part of agentic software is not that agents will call our APIs.
-
-That part is obvious.
-
-The dangerous part is that once agents call our APIs, we may stop seeing what people actually wanted.
-
-A human user carries intent. They search, hesitate, rephrase, abandon, complain, compare, and misuse the product in interesting ways. That messy behavior is not noise. It is the product signal.
-
-An agent compresses that mess into an execution path.
-
-The user says something vague like:
+A customer says:
 
 > We have too many angry customers after failed payments. Can you clean this up before renewal?
 
-The agent turns that into:
+An AI agent understands the request, checks a few systems, and calls an API:
 
 ```json
 {
@@ -32,107 +22,142 @@ The agent turns that into:
 }
 ```
 
-The system records that an invoice retry happened.
-
-But the business question was not really “retry this invoice.”
-
-The real question may have been:
-
-- Why are so many customers failing at renewal?
-- Which recovery message works best for this segment?
-- Should we offer an extension before retrying?
-- Are we damaging trust by retrying too aggressively?
-- Is this really a payment problem, or a lifecycle problem?
-
-If all we capture is the final API call, we learn less than we used to learn from the old UI.
-
-That is the strategic problem.
-
-## APIs optimize for execution. Product discovery depends on ambiguity.
-
-APIs are designed to be precise.
-
-They want stable inputs, known identifiers, valid states, explicit permissions, predictable output.
-
-That is good engineering.
-
-But product development often starts from imprecise human behavior:
-
-- search queries that do not match the product model
-- support tickets written in emotional language
-- repeated workarounds
-- abandoned flows
-- spreadsheet exports used as shadow product surfaces
-- “can it also do this?” questions in sales calls
-- users asking for one thing while clearly needing another
-
-That ambiguity is where new product direction comes from.
-
-Google learned from queries. Amazon learned from searches and abandoned carts. SaaS companies learn from support pain, onboarding friction, usage patterns, and the awkward mismatch between what the product exposes and how customers describe their work.
-
-Agents can accidentally erase that mismatch.
-
-Not because agents are bad.
-
-Because agents are good at translation.
-
-They translate human intent into machine action. If the product only observes the machine action, the product team loses the original shape of demand.
-
-## The SaaS risk: becoming blind infrastructure
-
-A SaaS product that exposes APIs to agents but does not preserve intent risks becoming invisible infrastructure.
-
-The agent owns the conversation.
-
-The agent sees the goal.
-
-The agent sees the failed attempts.
-
-The agent sees the tradeoffs.
-
-The agent sees the moments where the user was confused, disappointed, or trying to do something the product does not support.
-
-The SaaS vendor sees:
+The API log says:
 
 ```txt
-POST /retry_invoice 200 OK
-POST /apply_offer 200 OK
-POST /update_subscription 200 OK
+retry_invoice succeeded
+```
+
+Technically, everything worked.
+
+But product-wise, we lost almost everything important.
+
+The customer was not really asking to retry one invoice. They were asking some combination of:
+
+- Why are payments failing?
+- How do we recover revenue without annoying customers?
+- Should we change retry timing?
+- Should we send a different message?
+- Should we offer an extension?
+- Is this a billing problem, a lifecycle problem, or a retention problem?
+
+The API only saw the final action.
+
+It did not see the real intent.
+
+That is the problem.
+
+## Why this matters
+
+In normal SaaS products, users create a lot of signal before they finish an action.
+
+They search. They click the wrong thing. They abandon a flow. They open support tickets. They ask sales weird questions. They export data to spreadsheets. They describe their problem in messy human language.
+
+That mess is valuable.
+
+It tells the product team what people are trying to do before the product has a clean feature for it.
+
+A simple example:
+
+If users keep searching for “failed payment churn,” but the product only has a page called “invoice retries,” that mismatch is product signal.
+
+It tells us the user does not think in our internal product model. They think in business outcomes.
+
+Now add agents.
+
+The user may never search inside the product. They may never click through the UI. They may never open our retry page. They may just ask an agent:
+
+> Fix failed-payment churn for accounts renewing this month.
+
+Then the agent calls five APIs.
+
+From our side, we see five clean API calls.
+
+But we do not see the original business problem unless we design for it.
+
+## APIs are good at execution, bad at intent
+
+APIs are supposed to be precise.
+
+That is why we like them.
+
+They take known inputs and return predictable outputs:
+
+```txt
+customer_id
+invoice_id
+coupon_id
+subscription_id
+```
+
+That is great for execution.
+
+But product development depends on understanding the vague part before execution:
+
+```txt
+I want to save this customer.
+I want to reduce churn.
+I want to stop annoying users.
+I want to know why this keeps happening.
+I want to compare options before touching revenue.
+```
+
+Those are not just comments. Those are the real product requirements.
+
+If an agent turns that intent into `retry_invoice`, and we only log `retry_invoice`, our product analytics become dumber.
+
+We know what happened.
+
+We do not know why it happened.
+
+## The risk: becoming blind infrastructure
+
+This is the bigger strategic risk for SaaS companies.
+
+If agents become the main interface, the agent sees the customer goal.
+
+The agent sees:
+
+- the original question
+- the confusion
+- the failed attempts
+- the tradeoffs
+- the alternatives
+- the missing product capability
+
+The SaaS product sees:
+
+```txt
+POST /retry_invoice 200
+POST /apply_discount 200
+POST /update_subscription 200
 ```
 
 That is not enough.
 
-Those logs tell you execution frequency. They do not tell you why the work existed.
+At that point, the SaaS product still executes the work, but the agent owns the product conversation.
 
-Over time, this changes the product relationship. The application becomes a tool surface behind someone else's interface. It still receives calls. It still makes money. But it loses the discovery loop that tells it what to build next.
+That means the agent owner may learn what to build next faster than the SaaS vendor does.
 
-That is how products become utilities.
+That is how a product becomes infrastructure.
 
-Not immediately. Slowly.
+It still gets used.
 
-First, the UI matters less.
+It still gets API traffic.
 
-Then, onboarding matters less.
+It may still make money.
 
-Then, workflows move into the agent.
+But it loses direct visibility into customer demand.
 
-Then, the product roadmap starts depending on secondhand signal from whatever system owns the interaction layer.
+That is dangerous.
 
-At that point the vendor still owns execution, but no longer owns product intuition.
+## MCP makes this concrete
 
-That is a bad trade.
+MCP gives agents a standard way to call tools.
 
-## MCP makes this more urgent
+That is useful.
 
-MCP is useful because it gives agents a standard way to discover and call tools.
-
-But the default mental model around MCP is still too RPC-shaped.
-
-Expose a tool. Define parameters. Let the agent call it.
-
-That is necessary, but not sufficient.
-
-If an MCP server exposes tools like this:
+But many MCP tools are designed like basic RPC endpoints:
 
 ```ts
 server.tool("retry_invoice", {
@@ -143,23 +168,28 @@ server.tool("retry_invoice", {
 });
 ```
 
-it may be technically correct and strategically incomplete.
+This works mechanically.
 
-It captures the object and the action.
+But it only captures:
 
-It does not capture the job.
+- which invoice
+- which customer
+- which action
 
-It does not capture what the user asked for.
+It does not capture:
 
-It does not capture why the agent selected this tool instead of another one.
+- what the user originally asked for
+- why the agent chose this action
+- what business outcome the user wanted
+- what constraints mattered
+- whether the agent had doubts
+- whether the product was missing a better workflow
 
-It does not capture whether the user wanted revenue recovery, customer goodwill, lower support burden, reduced churn, or just a quick operational fix.
+For agent-facing APIs, that is too weak.
 
-The better design is to treat intent as part of the contract, not as optional telemetry.
+## Bad design: tool call only
 
-## Bad MCP tool design: execution-only
-
-This is the API shape that will make product teams blind:
+This is the kind of MCP tool that loses product signal:
 
 ```ts
 server.tool("apply_discount", {
@@ -170,35 +200,36 @@ server.tool("apply_discount", {
 });
 ```
 
-It answers only:
+It tells us that a discount was applied.
 
-- what object changed
-- what action ran
-- whether it succeeded
+It does not tell us why.
 
-It does not answer:
+Was the user trying to save a churning customer?
 
-- what the user was trying to accomplish
-- what alternatives were considered
-- what constraint mattered
-- whether this is a one-off fix or evidence of a missing workflow
-- whether the agent had high or low confidence
+Fix a billing mistake?
 
-For internal automation, that may feel acceptable.
+Match a competitor offer?
 
-For product learning, it is weak.
+Reduce support pressure?
 
-## Better MCP tool design: require intent context
+Test a lifecycle campaign?
 
-The tool should force the caller to carry intent through the execution boundary.
+Protect an enterprise renewal?
 
-For example:
+Those are different product problems. They just happen to use the same low-level API.
+
+## Better design: require intent
+
+The tool should force the agent to pass the user intent together with the action.
+
+Something like this:
 
 ```ts
 const IntentContext = z.object({
   user_goal: z.string().min(20).describe(
-    "The user's original business goal in their own terms. Do not reduce this to the API action."
+    "The user's original goal in plain business language. Do not reduce this to the API action."
   ),
+
   job_to_be_done: z.enum([
     "recover_revenue",
     "reduce_churn",
@@ -207,21 +238,24 @@ const IntentContext = z.object({
     "explore_options",
     "unknown"
   ]),
-  trigger: z.enum([
-    "user_direct_request",
-    "agent_recommendation",
-    "scheduled_policy",
-    "support_escalation",
-    "workflow_continuation"
-  ]),
+
   constraints: z.array(z.string()).default([]).describe(
-    "Business constraints the user expressed, such as do not annoy customer, preserve contract terms, avoid discounting, keep ARR, or handle before renewal."
+    "Important constraints from the user, such as avoid annoying the customer, preserve ARR, do not discount, or finish before renewal."
   ),
-  alternatives_considered: z.array(z.string()).default([]),
+
+  reason_for_action: z.string().min(20).describe(
+    "Why the agent chose this tool instead of another option."
+  ),
+
   confidence: z.enum(["high", "medium", "low"]),
+
   missing_context: z.array(z.string()).default([])
 });
+```
 
+Then the tool requires it:
+
+```ts
 server.tool("apply_retention_offer", {
   accountId: z.string(),
   subscriptionId: z.string(),
@@ -236,32 +270,35 @@ server.tool("apply_retention_offer", {
     intent
   });
 
-  return applyRetentionOffer({ accountId, subscriptionId, offerId });
+  return applyRetentionOffer({
+    accountId,
+    subscriptionId,
+    offerId
+  });
 });
 ```
 
-This changes the contract.
+Now the API records two things:
 
-The agent cannot just say “apply coupon X.”
+1. The action: retention offer applied.
+2. The reason: user wanted to save a renewal at risk without damaging the customer relationship.
 
-It has to say why this action exists.
+That is much more useful.
 
-The API now records both execution and demand.
+## Even better: create intent first, then execute tools
 
-## Better still: separate intent capture from execution
+For important workflows, I would make intent a first-class object.
 
-For more important workflows, I would not bury intent capture inside every tool call only.
-
-I would create an explicit first-class intent object.
+First, the agent creates an intent record:
 
 ```ts
 server.tool("create_customer_intent", {
-  actor: z.object({
-    type: z.enum(["human", "agent", "system"]),
-    id: z.string().optional()
-  }),
   raw_user_request: z.string().min(1),
-  normalized_goal: z.string().min(20),
+
+  normalized_goal: z.string().min(20).describe(
+    "A clean summary of what the user is trying to accomplish."
+  ),
+
   domain: z.enum([
     "billing",
     "retention",
@@ -271,19 +308,18 @@ server.tool("create_customer_intent", {
     "analytics",
     "unknown"
   ]),
+
   desired_outcome: z.string().min(10),
-  urgency: z.enum(["low", "normal", "high", "critical"]),
+
   constraints: z.array(z.string()).default([]),
-  entities_mentioned: z.array(z.object({
-    type: z.string(),
-    value: z.string()
-  })).default([])
+
+  urgency: z.enum(["low", "normal", "high", "critical"])
 }, async (input) => {
   return createIntentRecord(input);
 });
 ```
 
-Then every execution tool requires the `intentId`.
+Then every execution tool requires the `intentId`:
 
 ```ts
 server.tool("retry_invoice", {
@@ -303,89 +339,105 @@ server.tool("retry_invoice", {
 });
 ```
 
-That is closer to how product analytics should work in an agent world.
+This gives us a better model:
 
-Intent becomes the parent object.
+```txt
+Intent
+  -> list failed invoices
+  -> preview retry plan
+  -> apply retention offer
+  -> schedule retry
+```
 
-Tool calls become child events.
+The intent becomes the parent.
 
-Now the product team can ask better questions:
+The tool calls become children.
 
-- What goals are users trying to accomplish?
-- Which intents require many tool calls?
-- Which intents fail?
-- Which intents require workarounds?
-- Which intents are increasing but have no native product workflow?
-- Which tool calls are symptoms of a larger lifecycle problem?
+Now we can ask product questions:
 
-That is much more valuable than endpoint frequency.
+- What are customers trying to accomplish?
+- Which intents require too many tool calls?
+- Which intents fail often?
+- Which intents need workarounds?
+- Which intents are growing every month?
+- Which intents do not have a native product workflow yet?
 
-## Capture failed and abandoned intent too
+That is where future product development comes from.
 
-The most valuable product signal is often the thing that did not execute.
+## Capture what the agent could not do
 
-A user asks for something. The agent cannot do it. The agent works around it. Or the user gives up.
+The most valuable signal is often not the successful API call.
 
-If only successful tool calls are logged, you miss the roadmap.
+It is the failed request.
 
-MCP servers should expose an explicit failure or gap signal:
+In the old product world, this was:
+
+- search with no results
+- abandoned checkout
+- failed onboarding
+- support escalation
+- spreadsheet workaround
+
+In the agent world, we need to capture the same thing explicitly.
+
+Example MCP tool:
 
 ```ts
 server.tool("record_unmet_intent", {
   raw_user_request: z.string().min(1),
+
   normalized_goal: z.string().min(20),
+
   attempted_tools: z.array(z.string()).default([]),
+
   reason_unmet: z.enum([
     "missing_api_capability",
     "missing_permissions",
-    "ambiguous_user_request",
     "missing_data",
-    "unsafe_or_policy_blocked",
+    "ambiguous_user_request",
     "product_workflow_gap",
+    "unsafe_or_policy_blocked",
     "unknown"
   ]),
+
   workaround_used: z.string().optional(),
+
   product_gap_hypothesis: z.string().optional()
 }, async (input) => {
   return recordProductSignal(input);
 });
 ```
 
-This is the equivalent of search-with-no-results, abandoned cart, failed onboarding, and support escalation in the old product world.
+This matters because the roadmap often lives in the failed request.
 
-It should not be an afterthought.
+If ten customers ask agents to “compare retry strategy against churn risk,” and the agent has to hack around it every time, that is a product opportunity.
 
-It is one of the main reasons to instrument agents in the first place.
+But we only learn that if we capture the unmet intent.
 
-## Do not trust free-form logs only
+## Do not rely only on conversation logs
 
-A common lazy answer is: “We will log the conversation.”
+A weak answer is:
+
+> We will just log the whole agent conversation.
 
 That is not enough.
 
-Raw conversation logs are useful for debugging, but bad as the primary product signal:
+Raw logs are useful for debugging, but bad for product learning.
 
-- they are hard to aggregate
-- they are noisy
-- they may contain sensitive data
-- they are expensive to analyze at scale
-- they create retention and privacy problems
-- they do not force the agent to classify what happened
+They are noisy. They are hard to aggregate. They may contain sensitive data. They require expensive analysis later. And they do not force the agent to classify what happened.
 
-The better pattern is structured intent capture plus optional redacted snippets.
-
-Something like:
+A better event looks like this:
 
 ```json
 {
   "intent_id": "int_01JZ...",
   "surface": "mcp",
   "raw_user_request_redacted": "Help reduce failed-payment churn before renewal",
-  "normalized_goal": "Recover revenue while avoiding customer-hostile retry behavior",
+  "normalized_goal": "Recover revenue without aggressive customer-hostile retries",
   "job_to_be_done": "recover_revenue",
   "constraints": [
     "avoid aggressive retries",
-    "protect relationship with enterprise customer",
+    "protect enterprise relationship",
     "resolve before renewal date"
   ],
   "tools_called": [
@@ -402,29 +454,29 @@ Something like:
 }
 ```
 
-This is product-grade telemetry.
+This is not just an API log.
 
-It is not just observability.
+This is product intelligence.
 
-It is roadmap input.
+## Make intent required, not optional
 
-## The contract should make bad telemetry impossible
+The important part is enforcement.
 
-The strongest version is not “please include intent.”
+Do not ask agents to “please include intent.”
 
 That will decay.
 
-The strongest version is schema-level enforcement.
+Make intent part of the schema.
 
-For high-value tools, reject calls without intent.
+Reject important tool calls when intent is missing.
 
 ```ts
-function requireIntent<T extends { intent?: unknown }>(input: T) {
+function requireIntent(input: { intent?: unknown }) {
   const parsed = IntentContext.safeParse(input.intent);
 
   if (!parsed.success) {
     throw new Error(
-      "This tool requires intent context: user_goal, job_to_be_done, trigger, constraints, confidence."
+      "This tool requires intent context: user_goal, job_to_be_done, constraints, reason_for_action, confidence."
     );
   }
 
@@ -432,7 +484,7 @@ function requireIntent<T extends { intent?: unknown }>(input: T) {
 }
 ```
 
-Then inside each business tool:
+Then use it:
 
 ```ts
 server.tool("change_subscription_plan", {
@@ -453,50 +505,34 @@ server.tool("change_subscription_plan", {
 });
 ```
 
-You do not get durable product signal by asking nicely.
+This is the core design rule:
 
-You get it by making intent part of the interface.
+**Do not let agents turn human intent into silent API traffic.**
 
-## This is not just analytics. It changes the product architecture.
+## What every agent-facing API should answer
 
-Once intent is first-class, new capabilities become possible.
-
-You can build:
-
-- intent search across customers
-- product gap reports
-- workflow heatmaps
-- “top unmet intents” dashboards
-- agent quality reviews
-- confidence-based approval flows
-- human review for low-confidence actions
-- product discovery from failed automation
-- account-level memory of what the customer was trying to accomplish
-
-This is a different product primitive.
-
-In the old world, the primitive was the clickstream.
-
-In the API world, the primitive was the request log.
-
-In the agent world, the primitive should be the intent graph.
-
-## The operating rule
-
-Every agent-facing API should answer four questions:
+Every important agent-facing tool should answer four questions:
 
 1. What action was taken?
 2. What user goal caused the action?
 3. Why did the agent choose this action?
-4. What could the product not do natively?
+4. What could the product not do directly?
 
 Most APIs only answer the first question.
 
-That was acceptable when humans operated the UI directly and the product team could observe the surrounding behavior.
+That was acceptable when humans used the UI and product teams could observe the surrounding behavior.
 
-It is not acceptable when the agent becomes the interface.
+It is not acceptable when agents become the interface.
 
-If we expose tools without preserving intent, we may successfully automate the work and still lose the market signal.
+In the old world, the product primitive was the clickstream.
+
+In the API world, it was the request log.
+
+In the agent world, it should be the intent graph.
+
+If we do this well, agents can give us better product signal than the UI did.
+
+If we do it badly, we will automate the work and lose the learning.
 
 That is the failure mode.
 
