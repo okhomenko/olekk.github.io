@@ -78,6 +78,25 @@ a:visited {
   color: #0b0080;
 }
 
+.intro {
+  margin: 18px 0 28px;
+}
+
+.intro::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.profile-photo {
+  float: right;
+  width: 140px;
+  height: 140px;
+  margin: 0 0 14px 24px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+
 .meta {
   color: #666;
   font-family: Arial, Helvetica, sans-serif;
@@ -147,5 +166,13 @@ footer {
 
   html {
     font-size: 17px;
+  }
+
+  .profile-photo {
+    float: none;
+    display: block;
+    width: 112px;
+    height: 112px;
+    margin: 0 0 16px;
   }
 }
