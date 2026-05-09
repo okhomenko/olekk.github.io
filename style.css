@@ -78,13 +78,23 @@ a:visited {
   color: #0b0080;
 }
 
-.home-illustration {
-  box-sizing: border-box;
+.intro {
+  margin: 18px 0 28px;
+}
+
+.intro::after {
+  content: "";
   display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 18px 0 24px;
+  clear: both;
+}
+
+.profile-photo {
+  float: right;
+  width: 140px;
+  height: 140px;
+  margin: 0 0 14px 24px;
+  border: 1px solid #ddd;
+  object-fit: cover;
 }
 
 .meta {
@@ -158,7 +168,11 @@ footer {
     font-size: 17px;
   }
 
-  .home-illustration {
-    margin: 12px 0 18px;
+  .profile-photo {
+    float: none;
+    display: block;
+    width: 112px;
+    height: 112px;
+    margin: 0 0 16px;
   }
 }
