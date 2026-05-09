@@ -5,17 +5,9 @@ const SITE_URL = 'https://olekk.com';
 const SITE_TITLE = 'Oleksandr Khomenko';
 const SITE_DESCRIPTION = 'Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.';
 const ROOT = process.cwd();
+const TODAY = new Date().toISOString().slice(0, 10);
 
 const SKIP_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts']);
-
-async function fileExists(filePath) {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -44,7 +36,7 @@ function toUrl(filePath) {
 }
 
 function escapeXml(value) {
-  return value
+  return String(value)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;')
@@ -70,14 +62,13 @@ async function buildPages() {
 
   for (const filePath of htmlFiles) {
     const html = await fs.readFile(filePath, 'utf8');
-    const stat = await fs.stat(filePath);
     const url = toUrl(filePath);
 
     pages.push({
       url,
       title: extractTitle(html, url),
       description: extractDescription(html),
-      lastmod: stat.mtime.toISOString().slice(0, 10),
+      lastmod: TODAY,
     });
   }
 
@@ -90,7 +81,7 @@ function buildSitemap(pages) {
 }
 
 function buildFeed(pages) {
-  const updated = new Date().toISOString();
+  const updated = `${TODAY}T00:00:00Z`;
   const entries = pages.map(page => `  <entry>\n    <title>${escapeXml(page.title)}</title>\n    <link href="${escapeXml(page.url)}"/>\n    <id>${escapeXml(page.url)}</id>\n    <updated>${page.lastmod}T00:00:00Z</updated>\n    <summary>${escapeXml(page.description)}</summary>\n  </entry>`).join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom">\n  <title>${escapeXml(SITE_TITLE)}</title>\n  <subtitle>${escapeXml(SITE_DESCRIPTION)}</subtitle>\n  <link href="${SITE_URL}/feed.xml" rel="self"/>\n  <link href="${SITE_URL}/"/>\n  <id>${SITE_URL}/</id>\n  <updated>${updated}</updated>\n${entries}\n</feed>\n`;
@@ -101,11 +92,22 @@ function buildLlms(pages) {
   return `# ${SITE_TITLE}\n\n${SITE_DESCRIPTION}\n\n## Pages\n\n${links}\n`;
 }
 
-const pages = await buildPages();
+function validatePages(pages) {
+  if (pages.length === 0) {
+    throw new Error('No index.html pages found. SEO artifacts would be empty.');
+  }
 
-if (pages.length === 0) {
-  console.warn('No index.html pages found. SEO files were generated with no page entries.');
+  const urls = new Set();
+  for (const page of pages) {
+    if (urls.has(page.url)) throw new Error(`Duplicate URL: ${page.url}`);
+    urls.add(page.url);
+    if (!page.title || page.title.length < 3) throw new Error(`Missing or weak title: ${page.url}`);
+    if (!page.description || page.description.length < 20) throw new Error(`Missing or weak description: ${page.url}`);
+  }
 }
+
+const pages = await buildPages();
+validatePages(pages);
 
 await fs.writeFile(path.join(ROOT, 'sitemap.xml'), buildSitemap(pages));
 await fs.writeFile(path.join(ROOT, 'feed.xml'), buildFeed(pages));
