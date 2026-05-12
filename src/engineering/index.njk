@@ -1,8 +1,11 @@
 ---
-layout: layouts/base.njk
+layout: layouts/category.njk
 title: Engineering
 description: Essays about software engineering systems, architecture, technical leverage, delivery speed, and engineering tradeoffs.
 permalink: engineering.html
+categoryTags:
+  - engineering
+  - architecture
 structuredData:
   "@context": "https://schema.org"
   "@type": "CollectionPage"
@@ -10,21 +13,8 @@ structuredData:
   url: https://olekk.com/engineering.html
 ---
 
-<h1>Engineering</h1>
-
 <p>
   Writing about software engineering systems, technical leverage, architecture,
   delivery speed, organizational incentives, and the mechanics that determine
   whether teams compound or slow down.
 </p>
-
-<ul class="posts">
-  {% for post in collections.posts | reverse %}
-    {% if post.data.tags and ('engineering' in post.data.tags or 'architecture' in post.data.tags) %}
-      <li>
-        <a href="{{ post.url }}">{{ post.data.title }}</a>
-        <p class="description">{{ post.data.description }}</p>
-      </li>
-    {% endif %}
-  {% endfor %}
-</ul>

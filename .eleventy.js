@@ -32,6 +32,16 @@ module.exports = function (eleventyConfig) {
     return new URL(url || "/", base).toString();
   });
 
+  eleventyConfig.addFilter("withAnyTag", (posts = [], tags = []) => {
+    const wantedTags = Array.isArray(tags) ? tags : [tags].filter(Boolean);
+    if (wantedTags.length === 0) return [];
+
+    return posts.filter((post) => {
+      const postTags = Array.isArray(post?.data?.tags) ? post.data.tags : [];
+      return wantedTags.some((tag) => postTags.includes(tag));
+    });
+  });
+
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value, null, 2));
 
   return {
