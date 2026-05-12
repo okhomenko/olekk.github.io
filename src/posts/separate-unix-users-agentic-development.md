@@ -5,6 +5,8 @@ date: 2026-02-12
 description: Shared Unix accounts turn AI-assisted development into a pile of ambient authority, credential bleed, and hidden state.
 tags:
   - posts
+  - agents
+  - engineering
 tagsText: Linux, SSH, AI agents, developer workflow
 ---
 

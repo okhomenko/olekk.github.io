@@ -2,7 +2,9 @@
 title: Growth Engineering Is the Business of Reducing the Cost of Learning
 description: Growth engineering is not about shipping experiments. It is about building systems that make product learning cheaper, faster, and safer.
 date: 2024-10-17
-tags: posts
+tags:
+  - posts
+  - engineering
 layout: layouts/base.njk
 ---
 

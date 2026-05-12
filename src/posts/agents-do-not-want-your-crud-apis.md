@@ -5,6 +5,9 @@ date: 2026-03-18
 description: Most SaaS products are not agent-ready because their APIs expose implementation details instead of useful capabilities.
 tags:
   - posts
+  - agents
+  - engineering
+  - architecture
 tagsText: AI agents, APIs, architecture, SaaS
 ---
 

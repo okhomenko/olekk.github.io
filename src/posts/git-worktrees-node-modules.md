@@ -5,6 +5,7 @@ date: 2026-05-09
 description: Git worktrees make parallel development cheap, but they also expose the hidden operational cost of large JavaScript dependency trees.
 tags:
   - posts
+  - engineering
 tagsText: Git, JavaScript, developer workflow
 ---
 

@@ -3,7 +3,10 @@ layout: layouts/base.njk
 title: Encryption Keys Are Product Boundaries
 description: In multi-tenant B2B SaaS, key management is not just encryption plumbing. It models tenant authority, jurisdiction, deletion, and enterprise trust.
 date: 2024-11-12
-tags: posts
+tags:
+  - posts
+  - engineering
+  - architecture
 ---
 
 # Encryption Keys Are Product Boundaries

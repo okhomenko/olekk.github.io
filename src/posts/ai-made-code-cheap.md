@@ -5,6 +5,7 @@ date: 2025-11-06
 description: AI changes the economics of software teams by making code generation abundant while review, judgment, and ownership remain scarce.
 tags:
   - posts
+  - engineering
 tagsText: AI, Engineering Leadership, Software Organizations
 ---
 

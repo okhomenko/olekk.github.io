@@ -5,6 +5,8 @@ date: 2025-11-18
 description: Architecture matters because it determines how expensive each future product change becomes.
 tags:
   - posts
+  - engineering
+  - architecture
 tagsText: Engineering Leverage, Architecture, Software Organizations
 ---
 

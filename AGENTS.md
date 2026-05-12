@@ -207,10 +207,9 @@ Avoid shallow SEO content, generic tutorials, or posts that do not connect to th
 Preferred top-level sections:
 
 - `/engineering.html`
-- `/ai.html`
-- `/systems.html`
 - `/running.html`
-- `/personal.html` only when truly useful
+- `/life.html`
+- `/personal.html` only when truly useful and explicitly added
 
 Running content should not feel disconnected from the rest of the site. Frame it around systems, compounding, durability, consistency, feedback loops, and long-term performance.
 
@@ -224,7 +223,8 @@ When adding a new post:
 4. Start with a thesis, not background.
 5. Include a decision rule or operating principle.
 6. Use accurate dates. Do not invent or future-date posts unless explicitly requested.
-7. Add internal links to at least two related posts or section pages when possible.
+7. Add machine-readable section tags such as `engineering`, `running`, or `life` in addition to `posts`. Section pages depend on these tags; `tagsText` is only display text. Do not add `ai` or `systems` as category tags unless those top-level categories are reintroduced.
+8. Add internal links to at least two related posts or section pages when possible.
 
 Expected post structure:
 

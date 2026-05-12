@@ -5,6 +5,9 @@ date: 2026-04-12
 description: If agents become the interface, API logs stop being enough. Products need to capture the user goal before it becomes a tool call.
 tags:
   - posts
+  - agents
+  - engineering
+  - architecture
 tagsText: AI Agents, APIs, Product Architecture
 ---
 

@@ -5,6 +5,7 @@ date: 2025-12-22
 description: A practical note on making a home Linux workstation feel like private infrastructure without public SSH exposure or VPN ceremony.
 tags:
   - posts
+  - engineering
 tagsText: Linux, SSH, VPN, remote development
 ---
 
