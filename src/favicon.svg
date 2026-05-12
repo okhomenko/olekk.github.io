@@ -1,15 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <style>
-    .bg { fill: #111214; }
-    .mark { fill: #f8f7f2; }
-    .rim { stroke: transparent; }
-    @media (prefers-color-scheme: dark) {
-      .bg { fill: #f8f7f2; }
-      .mark { fill: #111214; }
-      .rim { stroke: #e7e3dc; }
-    }
-  </style>
-  <rect class="bg rim" x="3" y="3" width="58" height="58" rx="12" stroke-width="1.25"/>
-  <text class="mark" x="10.5" y="43" font-family="Georgia, 'Times New Roman', serif" font-size="38">O</text>
-  <text class="mark" x="29" y="43" font-family="Georgia, 'Times New Roman', serif" font-size="35">K</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="OK logo">
+  <rect width="1024" height="1024" fill="#fbf6ee"/>
+  <circle cx="512" cy="512" r="414" fill="none" stroke="#c91d23" stroke-width="10"/>
+  <path fill="#d11822" fill-rule="evenodd" d="M360 258c-73 0-123 58-123 142v47c0 31-15 55-43 72 28 17 43 41 43 72v72c0 84 50 142 123 142s123-58 123-142v-72c0-31 15-55 43-72-28-17-43-41-43-72v-47c0-84-50-142-123-142Zm0 57c32 0 52 35 52 91v229c0 76-20 113-52 113s-52-37-52-113V406c0-56 20-91 52-91Z"/>
+  <path fill="#191a1c" d="M504 264h139v15c-28 10-39 33-39 80v139l119-174c17-25 16-38-4-45v-15h111v15c-28 8-52 30-78 68L657 486l105 214c15 31 30 49 55 56v15h-96v-15c21-8 24-23 10-48L625 526l-21 31v136c0 47 11 70 39 80v14H504v-14c28-10 39-33 39-80V359c0-47-11-70-39-80V264Z"/>
 </svg>
