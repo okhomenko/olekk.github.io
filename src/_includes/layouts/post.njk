@@ -2,24 +2,6 @@
 layout: layouts/base.njk
 ---
 
-{% set structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: title,
-  description: description or site.description,
-  author: {
-    '@type': 'Person',
-    name: site.author,
-    url: site.url
-  },
-  datePublished: date | htmlDateString,
-  dateModified: (updated or date) | htmlDateString,
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': page.url | absoluteUrl(site.url)
-  }
-} %}
-
 <article>
   <h1>{{ title }}</h1>
 

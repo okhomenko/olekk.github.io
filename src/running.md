@@ -2,11 +2,12 @@
 layout: layouts/base.njk
 title: Running
 description: Endurance, ultrarunning, training, and lessons from long distances.
+permalink: running.html
 structuredData:
   "@context": "https://schema.org"
   "@type": "CollectionPage"
   name: Running
-  url: https://olekk.com/running/
+  url: https://olekk.com/running.html
 ---
 
 <h1>Running</h1>

@@ -28,6 +28,12 @@ jobs:
       - run: npm install
       - run: npm run build
 
+      - name: Verify SEO artifacts
+        run: |
+          test -f _site/sitemap.xml
+          test -f _site/feed.xml
+          test -f _site/llms.txt
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

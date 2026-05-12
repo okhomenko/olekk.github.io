@@ -3,29 +3,34 @@ layout: layouts/base.njk
 title: Oleksandr Khomenko
 description: Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.
 structuredData:
-  "@context": "https://schema.org"
-  "@type": "Person"
-  name: Oleksandr Khomenko
-  url: https://olekk.com
-  sameAs:
-    - https://github.com/okhomenko
-    - https://www.linkedin.com/in/okhomenko/
-  knowsAbout:
-    - Software engineering
-    - AI-enabled software development
-    - Product architecture
-    - Systems thinking
-    - Technical leadership
-    - Endurance running
+  - "@context": "https://schema.org"
+    "@type": "Person"
+    name: Oleksandr Khomenko
+    url: https://olekk.com
+    sameAs:
+      - https://github.com/okhomenko
+      - https://www.linkedin.com/in/okhomenko/
+    knowsAbout:
+      - Software engineering
+      - AI-enabled software development
+      - Product architecture
+      - Systems thinking
+      - Technical leadership
+      - Endurance running
+  - "@context": "https://schema.org"
+    "@type": "WebSite"
+    name: Oleksandr Khomenko
+    url: https://olekk.com
+    description: Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.
 ---
 
-<h1>Notes</h1>
+<h1>Engineering systems, AI-enabled development, and endurance thinking</h1>
 
 <section class="intro">
   <img
     class="profile-photo"
     src="https://avatars.githubusercontent.com/u/206691?v=4"
-    alt="Alex"
+    alt="Oleksandr Khomenko"
     width="160"
     height="160"
   />
@@ -42,7 +47,7 @@ structuredData:
   </p>
 </section>
 
-<h2>Posts</h2>
+<h2>Essays</h2>
 
 <ul class="posts">
   {% for post in collections.posts | reverse %}
@@ -59,6 +64,6 @@ structuredData:
 <h2>External</h2>
 
 <ul class="links">
-  <li><a href="https://github.com/okhomenko">GitHub</a></li>
-  <li><a href="https://www.linkedin.com/in/okhomenko/">LinkedIn</a></li>
+  <li><a rel="me" href="https://github.com/okhomenko">GitHub</a></li>
+  <li><a rel="me" href="https://www.linkedin.com/in/okhomenko/">LinkedIn</a></li>
 </ul>

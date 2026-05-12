@@ -1,4 +1,4 @@
-name: SEO Generation
+name: SEO validation
 
 on:
   push:
@@ -23,11 +23,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build site
+      - name: Build site and generate SEO artifacts
         run: npm run build
-
-      - name: Generate SEO artifacts
-        run: node scripts/generate-seo.mjs _site
 
       - name: Verify generated files
         run: |

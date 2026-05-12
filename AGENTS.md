@@ -171,11 +171,11 @@ Avoid shallow SEO content, generic tutorials, or posts that do not connect to th
 
 Preferred top-level sections:
 
-- `/engineering/`
-- `/ai/`
-- `/systems/`
-- `/running/`
-- `/personal/` only when truly useful
+- `/engineering.html`
+- `/ai.html`
+- `/systems.html`
+- `/running.html`
+- `/personal.html` only when truly useful
 
 Running content should not feel disconnected from the rest of the site. Frame it around systems, compounding, durability, consistency, feedback loops, and long-term performance.
 
@@ -256,7 +256,7 @@ This repo contains a lightweight SEO generator:
 
 It scans rendered/static HTML pages matching:
 
-- `**/index.html`
+- `**/*.html`
 
 It generates:
 
@@ -264,11 +264,17 @@ It generates:
 - `feed.xml`
 - `llms.txt`
 
-The GitHub Action is:
+The build script runs Eleventy and then the SEO generator:
+
+- `npm run build`
+
+The deployment workflow uploads the already-generated SEO files with the Pages artifact:
+
+- `.github/workflows/pages.yml`
+
+The validation workflow checks the same generated outputs on pushes and pull requests:
 
 - `.github/workflows/seo.yml`
-
-The action runs the generator, validates output, uploads generated artifacts, and auto-commits generated SEO files back to the branch.
 
 Do not hand-maintain generated files unless there is no generator support. Prefer updating `scripts/generate-seo.mjs` or page metadata so generated artifacts stay correct.
 
@@ -278,22 +284,26 @@ The generator should fail rather than silently publishing bad SEO data.
 
 Current expectations:
 
-- At least one `index.html` page must exist.
+- At least one HTML page must exist.
 - Generated URLs must be unique.
+- Generated URLs must use explicit `.html` paths, except the homepage.
+- Generated URLs must match each page's canonical URL.
 - Every indexed page must have a meaningful title.
 - Every indexed page must have a meaningful description.
+- Article pages must have a publication date.
 
 If adding new pages, add proper `<title>` and `<meta name="description">` first.
 
 ## URL conventions
 
-Use clean, canonical, trailing-slash URLs:
+Use clean, canonical, explicit `.html` URLs:
 
 - `https://olekk.com/`
-- `https://olekk.com/running/`
-- `https://olekk.com/engineering/some-post/`
+- `https://olekk.com/running.html`
+- `https://olekk.com/engineering.html`
+- `https://olekk.com/posts/some-post.html`
 
-Avoid multiple URL forms for the same content.
+Avoid directory-style URLs such as `/running/`, `/engineering/`, or `/posts/some-post/`. The homepage may remain `/`; every other public page should render to a concrete `.html` file and use that `.html` path in internal links, canonical URLs, feeds, sitemaps, and structured data.
 
 ## RSS and AI discoverability
 

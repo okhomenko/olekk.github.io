@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "build": "eleventy",
+    "build": "npm run build:site && npm run seo",
+    "build:site": "eleventy",
+    "seo": "node scripts/generate-seo.mjs _site",
     "dev": "eleventy --serve"
   },
   "devDependencies": {

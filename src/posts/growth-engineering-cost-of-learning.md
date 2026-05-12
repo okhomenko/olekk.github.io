@@ -80,7 +80,7 @@ The best growth teams do not merely run experiments. They build the machinery th
 
 ## Related essays
 
-- [Agents, APIs, and the Product Signal We Are About to Lose](/posts/agents-apis-and-product-signal/)
+- [Agents, APIs, and the Product Signal We Are About to Lose](/posts/agents-apis-and-product-signal.html)
 
 ## Further reading
 
