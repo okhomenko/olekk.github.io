@@ -151,6 +151,41 @@ Operator tone means decision pressure, not executive theater. Connect technical 
 
 Senior engineering tone means naming mechanisms and boundaries. Do not merely say something is important. Explain what breaks when it is missing.
 
+## Writing posts
+
+Write posts from the source of authority the author actually has.
+
+When the source is personal experience, use first person. `I`, `we`, `me`, `my wife`, and concrete trip/race/project details are appropriate when they explain the decision, tradeoff, or changed belief. Do not turn a self-lesson into a lecture aimed at an abstract reader.
+
+Use paragraph breaks deliberately. A one-sentence paragraph is useful for a thesis, turn, or closing line, but a post should not read like hundreds of isolated punchlines. Most paragraphs should carry a complete thought with context, mechanism, and consequence.
+
+Prefer self-directed framing:
+
+```text
+I treated every open day as available capacity.
+The planning model failed.
+Here is the mechanism.
+Here is the rule I will use next time.
+```
+
+Avoid reader-scolding phrasing:
+
+```text
+Stop pretending every day should be memorable.
+That only makes sense if the goal is collecting locations.
+This is travel designed for humans.
+```
+
+Better versions:
+
+```text
+I treated too many days as if they needed to become memories.
+That looked efficient when I was planning from a map.
+For us, fewer transitions would have made the trip better.
+```
+
+The general rule: name the author's mistake first, then extract the mechanism. Let the reader recognize themselves without being talked down to.
+
 ## Content strategy
 
 Prefer durable essays over short random notes.

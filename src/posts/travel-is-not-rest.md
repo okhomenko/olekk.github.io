@@ -2,73 +2,42 @@
 layout: layouts/post.njk
 title: Travel is not rest
 date: 2026-05-12
-description: A two-week trip can fail as recovery when it becomes logistics, decisions, movement, and stimulation without enough quiet days.
+description: What my wife and I learned when a beautiful two-week trip became too much logistics, movement, and stimulation to feel like recovery.
 tags:
   - posts
   - life
 tagsText: Life, Travel, Recovery, Systems
 ---
 
-Travel is not automatically rest.
+Travel was not automatically rest for me.
 
-A trip can be beautiful and still drain you. Two weeks in Portugal and Spain can look like a vacation on a map, but feel like a logistics marathon in the body.
+My wife and I spent two weeks in Portugal and Spain. The trip was beautiful, and I am glad we went. It was also more draining than I expected. The problem was not Portugal or Spain. The problem was the planning model I used: I planned around places more than recovery capacity.
 
-The failure mode is simple: we plan travel around places, not around recovery capacity.
+## Where I misread the trip
 
-## The common mistake
+I treated too many open days as available capacity. A city looked close. A hotel looked convenient. A day trip looked easy. A famous place looked too important to skip. None of those choices looked unreasonable alone, but together they made the trip dense.
 
-The common mistake is treating every open day as available capacity.
+That was the part I undercounted. Pack, check out, drive, park, walk, find food, check in, repeat. No single step was hard enough to notice during planning. In the actual trip, those steps became the trip.
 
-A city looks close. A hotel looks convenient. A day trip looks easy. A famous place looks too important to skip.
+## The load I did not count
 
-So the itinerary becomes dense:
+I counted cities, hotels, drives, and days. I did not count enough of the small frictions that make travel tiring: navigation, parking, restaurants, tickets, language, tolls, sleep, bathrooms, laundry, decisions. My body did not care that these were not workouts. They still consumed capacity.
 
-```text
-pack
-check out
-drive
-park
-walk
-find food
-check in
-repeat
-```
+Walking 20,000 steps through old towns, hills, stone streets, museums, and crowds is not the same as an easy walk at home. It is low-grade physical load plus constant sensory input. That was deceptive for me because I am used to endurance load. Fitness made the walking possible. It did not make the context free.
 
-None of those tasks looks hard alone. Together they become the trip.
+## Transitions cost more than distance
 
-The vacation becomes a sequence of transitions.
+The most expensive part of the trip was not distance. It was transition density.
 
-## The hidden load
+Every hotel change reset the system. We lost the known bed, known parking, known grocery store, known coffee, known running route, known quiet corner, and known exit path. A two-hour drive could cost half a day because it carried setup and teardown around it.
 
-Travel creates fatigue through small frictions that do not appear in the plan.
+That is why the trip could feel more tiring than a normal work week. Work has repetition. Travel has novelty. Novelty is expensive when the system never settles.
 
-There is navigation friction. Parking friction. Restaurant friction. Ticket friction. Language friction. Toll friction. Sleep friction. Bathroom friction. Laundry friction. Decision friction.
+## The boring day I should have planned
 
-The body does not care that these are not workouts. They still consume capacity.
+The answer is not to stop traveling or to make every trip small. The answer for me is to stop treating every day as something that needs to become a memory. For us, a good long trip needs boring days on purpose.
 
-Walking 20,000 steps through old towns, hills, stone streets, museums, and crowds is not the same as an easy walk at home. It is low-grade physical load plus constant sensory input.
-
-For endurance people, this can be deceptive. Fitness makes the walking possible. It does not make the context free.
-
-## The real problem is transition density
-
-Most exhausting trips are not exhausting because of distance.
-
-They are exhausting because of transitions.
-
-Every hotel change resets the system. You lose the known bed, known parking, known grocery store, known coffee, known running route, known quiet corner, known exit path.
-
-A two-hour drive can cost half a day because it carries setup and teardown around it.
-
-That is why a trip with seven stops in fourteen days can feel worse than a normal work week. Work has repetition. Travel has novelty. Novelty is expensive.
-
-## The trip needs boring days
-
-The fix is not to stop traveling.
-
-The fix is to stop pretending that every day should be memorable.
-
-A good long trip needs boring days on purpose:
+Next time, I want days that look more like this:
 
 - laundry
 - grocery store
@@ -79,19 +48,13 @@ A good long trip needs boring days on purpose:
 - no old town
 - no scheduled attraction
 
-That day may look wasted from the outside. It is not wasted. It is what makes the rest of the trip usable.
+That kind of day can look wasted from a map. For us, it would not be wasted. It is what would make the rest of the trip usable. Recovery is infrastructure. Without it, the itinerary can work on paper and still fail in the person.
 
-Recovery is infrastructure.
+## The rule I will use
 
-Without it, the itinerary works on paper and fails in the person.
+For a two-week trip, I would optimize for bases, not stops. Three bases is probably enough for us. Four is already pushing it. More than that needs a very good reason.
 
-## The rule I use
-
-For a two-week trip, optimize for bases, not stops.
-
-Three bases is usually enough. Four is already pushing it. More than that needs a very good reason.
-
-The operating rule:
+The rule I want to use:
 
 ```text
 One real activity per day.
@@ -99,34 +62,16 @@ One quiet block per day.
 One no-logistics day every three or four days.
 ```
 
-That sounds inefficient only if the goal is collecting locations.
+That can look inefficient when I am planning from a map. It looks much more efficient when I remember the goal is to enjoy the trip while I am actually inside it.
 
-If the goal is enjoying the trip, it is the efficient plan.
+## What I would change
 
-## The better way to travel
+I would pick hotels that reduce friction, not just hotels that look charming. If we are driving, I would be more careful with old-town hotels. Staying near a real road, real parking, and easy exits can be better than saving a few minutes of walking.
 
-Pick hotels that reduce friction, not just hotels that look charming.
+If running matters to me on the trip, I would choose a base near a good route. A park, waterfront, river path, or soft-surface loop can matter more than being five minutes closer to a cathedral. If the trip is longer than a week, I would protect routine like it is part of the itinerary. Coffee, run, grocery, quiet time, and sleep are not leftovers. They are the operating system.
 
-If driving, avoid the romantic old-town trap. Stay near a real road, real parking, and easy exits. Walk or take transit into the center.
+## What I learned
 
-If running matters, choose a base near a good route. A park, waterfront, river path, or soft-surface loop can matter more than being five minutes closer to a cathedral.
+I would build the trip less like a highlight reel and more like a training block. Stress is fine. Novelty is fine. Movement is fine. But stress needs recovery. Novelty needs repetition. Movement needs stillness.
 
-If the trip is longer than a week, protect routine like it is part of the itinerary. Coffee, run, grocery, quiet time, and sleep are not leftovers. They are the operating system.
-
-## What I would change next time
-
-I would build the trip less like a highlight reel and more like a training block.
-
-Stress is fine. Novelty is fine. Movement is fine.
-
-But stress needs recovery. Novelty needs repetition. Movement needs stillness.
-
-The lesson is not that travel is bad.
-
-The lesson is that a high-friction itinerary is not a vacation. It is work in better scenery.
-
-The better trip has fewer places, fewer transitions, more boring mornings, more repeatable routes, and more room to quit while the day still feels good.
-
-That is not less travel.
-
-That is travel designed for humans.
+The lesson is not that travel is bad. The lesson is that I can make travel feel like work if I add too much friction. The better version for us has fewer places, fewer transitions, more boring mornings, more repeatable routes, and more room to quit while the day still feels good. That is not less travel. That is the kind of travel I want to get better at planning.
