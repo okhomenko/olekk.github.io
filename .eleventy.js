@@ -4,6 +4,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.svg": "og-default.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/og-default.png": "og-default.png" });
 
   eleventyConfig.addGlobalData("site", {
     url: "https://olekk.com",
@@ -12,7 +13,12 @@ module.exports = function (eleventyConfig) {
       "Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.",
     author: "Oleksandr Khomenko",
     github: "https://github.com/okhomenko",
-    defaultOgImage: "/og-default.svg",
+    defaultOgImage: "/og-default.png",
+    defaultOgImageAlt:
+      "Oleksandr Khomenko. Engineering systems, AI-enabled development, and endurance-driven thinking.",
+    defaultOgImageWidth: 1200,
+    defaultOgImageHeight: 630,
+    defaultOgImageType: "image/png",
   });
 
   eleventyConfig.addFilter("htmlDateString", (dateObj) => {
