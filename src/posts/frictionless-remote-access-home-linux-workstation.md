@@ -2,24 +2,22 @@
 layout: layouts/post.njk
 title: Frictionless remote access to a home Linux workstation
 date: 2025-12-22
-description: A practical note on making a home Linux workstation feel like private infrastructure without public SSH exposure or VPN ceremony.
+description: "The setup I want for a home Linux workstation: private access that makes SSH feel cheap without exposing a public port."
 tags:
   - posts
   - engineering
 tagsText: Linux, SSH, VPN, remote development
 ---
 
-A powerful Linux workstation at home is a very practical form of personal infrastructure. It can run heavier builds, local services, long-lived agent sessions, databases, containers, and experiments without turning a laptop into a hot, noisy compromise.
-
-The weak point is access.
-
-When access requires manually connecting a VPN, waiting for it to establish, checking whether DNS works, and then finally opening SSH, the machine starts to feel less like infrastructure and more like a chore. The goal should be simpler:
+The product requirement for my home Linux workstation is not complicated:
 
 ```bash
 ssh home
 ```
 
-That is the whole product requirement.
+That is the whole test. If access takes a VPN ritual, a router check, a DNS guess, or a hunt for the right IP address, the machine stops feeling like infrastructure and starts feeling like a chore.
+
+A powerful workstation at home is useful personal infrastructure. It can run heavier builds, local services, long-lived agent sessions, databases, containers, and experiments without turning a laptop into a hot, noisy compromise. The weak point is access. If the first 30 seconds are annoying, the machine gets used less.
 
 ## The naive setup
 
@@ -29,25 +27,25 @@ The obvious first version is a classic VPN into the home network:
 laptop -> home router VPN -> home LAN -> workstation
 ```
 
-This works. It is also mentally heavier than it looks. Before every SSH session there is a ceremony: open VPN app, connect, wait, verify, then SSH to a private IP or hostname.
+This works. It is also mentally heavier than it looks. Before every SSH session there is ceremony: open the VPN app, connect, wait, verify, then SSH to a private IP or hostname.
 
-That friction matters. Tools that are technically correct but annoying in the first 30 seconds get used less. The result is predictable: the workstation is powerful, but underused.
+That friction matters. Tools that are technically correct but annoying at the start get used less. The workstation can be powerful and still underused.
 
-## Do not expose SSH directly
+## I do not expose SSH directly
 
-One tempting shortcut is to forward a public port to the workstation:
+The tempting shortcut is to forward a public port to the workstation:
 
 ```text
 public internet -> router:22 -> workstation:22
 ```
 
-That removes the VPN step but creates unnecessary attack surface. Even with key-only auth, no passwords, a non-standard port, and something like fail2ban, the machine is now part of the public internet's background radiation.
+That removes the VPN step, but it creates unnecessary attack surface. Even with key-only auth, no passwords, a non-standard port, and something like fail2ban, the machine is now part of the public internet's background noise.
 
-For a personal workstation, the better default is no public inbound SSH at all.
+For a personal workstation, my default is no public inbound SSH.
 
-## The better model: private overlay networking
+## The better model is device-to-device
 
-A cleaner approach is to put the laptop and workstation on the same private overlay network:
+The cleaner model is to put the laptop and workstation on the same private overlay network:
 
 ```text
 laptop -> private mesh -> workstation
@@ -55,9 +53,7 @@ laptop -> private mesh -> workstation
 
 The workstation gets a stable private identity. The laptop gets a stable way to reach it. The router becomes less important. The public internet never sees an open SSH port.
 
-This is where tools like Tailscale, ZeroTier, and similar overlay networks are useful. They turn the problem from "connect to my home network" into "connect to my own device."
-
-That distinction is important.
+Tools like Tailscale, ZeroTier, and similar overlay networks are useful because they turn the problem from "connect to my home network" into "connect to my own device."
 
 Classic home VPN:
 
@@ -71,11 +67,11 @@ Overlay network:
 Address the machine directly.
 ```
 
-For a remote development workstation, the second model is usually better.
+For routine remote development, I prefer the second model.
 
 ## Keep SSH boring
 
-There is no need to make SSH clever. The clean setup is mostly normal OpenSSH with a better network path underneath it.
+There is no need to make SSH clever. The clean setup is normal OpenSSH with a better network path underneath it.
 
 Example client config:
 
@@ -98,7 +94,7 @@ ssh home
 
 No IP address. No VPN preflight. No router UI. No public port.
 
-## Use tmux for session continuity
+## Use tmux because networks fail
 
 Network access solves only half the problem. Travel Wi-Fi, hotel networks, and cellular handoffs still happen.
 
@@ -126,9 +122,9 @@ Now the workflow is:
 ht
 ```
 
-If the laptop sleeps, the airplane Wi‑Fi collapses, or the hotel router decides to be weird, the work keeps running.
+If the laptop sleeps, the airplane Wi-Fi drops, or a hotel router behaves badly, the work keeps running.
 
-## When full VPN still makes sense
+## When full VPN still matters
 
 A router VPN is still useful as a fallback. Sometimes the goal is not to reach one workstation, but to behave as if the laptop is physically at home:
 
@@ -138,11 +134,9 @@ A router VPN is still useful as a fallback. Sometimes the goal is not to reach o
 - printers or scanners
 - services that were never meant to be individually exposed
 
-That is a different requirement.
+That is a different requirement. For routine development, device-to-device access is cleaner. For full home-LAN access, a router VPN is still useful.
 
-For routine development, device-to-device access is cleaner. For full home-LAN access, a router VPN is still useful.
-
-## The practical architecture
+## The setup I like
 
 The setup I like is:
 
@@ -157,7 +151,7 @@ Avoid:
   public SSH port forwarding
 ```
 
-This gives the workstation the feel of a small private cloud machine while keeping the operational model simple.
+This gives the workstation the feel of a small private cloud machine while keeping the operating model simple.
 
 The real test is not whether the network diagram is elegant. The real test is whether opening a terminal while traveling still feels cheap enough to do casually.
 
@@ -168,3 +162,8 @@ ssh home
 ```
 
 Everything else is implementation detail.
+
+## Related essays
+
+- [AI coding agents need identity boundaries](/posts/separate-unix-users-agentic-development.html)
+- [Git worktrees expose the real cost structure of JavaScript repositories](/posts/git-worktrees-node-modules.html)

@@ -2,7 +2,7 @@
 layout: layouts/post.njk
 title: AI coding agents need identity boundaries
 date: 2026-02-12
-description: Shared Unix accounts turn AI-assisted development into a pile of ambient authority, credential bleed, and hidden state.
+description: "The rule I use for local AI agents: split Unix accounts when credentials, identity, cloud access, or risk level differ."
 tags:
   - posts
   - agents
@@ -10,11 +10,15 @@ tags:
 tagsText: Linux, SSH, AI agents, developer workflow
 ---
 
-AI coding agents are useful, but they are also messy tenants. They accumulate shell history, Git credentials, SSH keys, package caches, editor state, API tokens, local configuration, daemon processes, and assumptions about the current working directory. When everything runs under one Unix account, all of that state collapses into one shared home directory.
+The rule I use for local AI agents is simple: split Unix accounts when credentials, identity, cloud access, or risk level differ.
+
+AI coding agents are useful, but they are messy tenants. They accumulate shell history, Git credentials, SSH keys, package caches, editor state, API tokens, local configuration, daemon processes, and assumptions about the current working directory. When everything runs under one Unix account, all of that state collapses into one shared home directory.
 
 That works until it does not.
 
-A cleaner model is to use separate Linux accounts for separate trust boundaries. Not one account per repository. That becomes operational noise. The better split is by identity, credentials, and risk profile.
+## The boundary I want
+
+A cleaner model is to use separate Linux accounts for separate trust boundaries. Not one account per repository. That becomes operational noise. The split I care about is identity, credentials, and risk profile.
 
 ```text
 alex
@@ -37,11 +41,22 @@ The human account remains the administrative account. The agent accounts hold th
 /home/agent-personal/.cache
 ```
 
-This is not perfect isolation. It is not a replacement for containers, VMs, or a real sandbox when executing untrusted code. But it is a strong default boundary for day-to-day development. It prevents accidental credential reuse, makes the current context obvious, and gives each agent a smaller blast radius.
+This is not perfect isolation. It is not a replacement for containers, VMs, or a real sandbox when executing untrusted code. It is a strong default boundary for day-to-day development because it prevents accidental credential reuse, makes the current context obvious, and gives each agent a smaller blast radius.
 
-The decision rule is simple: split accounts when credentials, cloud access, Git identity, organizational boundary, or risk level differ. Keep projects together when they merely differ by language, framework, branch, or local port.
+## The decision rule
 
-A practical setup might look like this:
+The decision rule I use is:
+
+```text
+Split accounts when credentials, cloud access, Git identity, organizational boundary, or risk level differ.
+Keep projects together when they merely differ by language, framework, branch, or local port.
+```
+
+That rule keeps the model useful without turning the machine into an account-management project.
+
+## A practical setup
+
+A practical baseline might look like this:
 
 ```bash
 sudo adduser agent-work
@@ -77,11 +92,17 @@ ssh dev-personal
 ssh dev-sandbox
 ```
 
-The biggest win is credential hygiene. Tools tend to read from default locations. Agents especially tend to follow whatever ambient authority exists in the shell. A separate Unix account turns many hidden defaults into explicit boundaries.
+That explicitness is the point. Tools tend to read from default locations. Agents especially tend to follow whatever ambient authority exists in the shell. A separate Unix account turns many hidden defaults into visible boundaries.
 
-There are tradeoffs. Tooling may need to be installed more than once. Shell configuration must be repeated or templated. Docker access requires care, because membership in the `docker` group is effectively root-equivalent on most systems. A sandbox account should not casually receive Docker access unless that risk is understood.
+## The tradeoff
 
-The important distinction is that Unix users separate identity and authority, while repository-level files such as `AGENTS.md`, editor rules, and project documentation guide behavior. These solve different problems. Use both.
+There is a cost. Tooling may need to be installed more than once. Shell configuration must be repeated or templated. Docker access requires care because membership in the `docker` group is effectively root-equivalent on most systems.
+
+I would not casually give a sandbox account Docker access unless I was comfortable with that risk. A sandbox with root-equivalent container access is not really a sandbox.
+
+The important distinction is that Unix users separate identity and authority, while repository-level files such as `AGENTS.md`, editor rules, and project documentation guide behavior. These solve different problems. I want both.
+
+## The baseline I like
 
 A good baseline is:
 
@@ -92,4 +113,9 @@ one account for personal code
 one account for risky experiments
 ```
 
-That is usually enough structure to avoid state pollution without turning the machine into an account-management project.
+That is usually enough structure to avoid state pollution without turning local development into ceremony.
+
+## Related essays
+
+- [Frictionless remote access to a home Linux workstation](/posts/frictionless-remote-access-home-linux-workstation.html)
+- [Git worktrees expose the real cost structure of JavaScript repositories](/posts/git-worktrees-node-modules.html)

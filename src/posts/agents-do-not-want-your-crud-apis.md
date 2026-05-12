@@ -2,7 +2,7 @@
 layout: layouts/post.njk
 title: Agents do not want your CRUD APIs
 date: 2026-03-18
-description: Most SaaS products are not agent-ready because their APIs expose implementation details instead of useful capabilities.
+description: "The agent-ready test I use for SaaS APIs: expose useful product capabilities, not remote access to internal objects."
 tags:
   - posts
   - agents
@@ -11,9 +11,9 @@ tags:
 tagsText: AI agents, APIs, architecture, SaaS
 ---
 
-Every B2B software company is going to claim it has an agentic platform. Most will start by wrapping existing APIs with an MCP server and declaring the job done.
+The test I use for agent-ready software is blunt: can an agent operate the product without pretending to be a human?
 
-That is not enough.
+Most B2B software companies will claim they have an agentic platform. Many will start by wrapping existing APIs with an MCP server and declaring the job done. I do not think that is enough.
 
 A headless product is not automatically an agent-ready product. Headless only means the interface is not tied to a human UI. It says nothing about whether the interface is understandable, safe, composable, or useful to an agent trying to accomplish a goal.
 
@@ -29,21 +29,21 @@ The common headless model looks like this:
 external system -> API -> backend -> database
 ```
 
-The agentic model is different:
+The agentic model needs a different middle layer:
 
 ```text
 agent -> capability surface -> execution systems -> observable outcomes
 ```
 
-That middle layer matters. It is where most products are weak.
+That capability surface is where I expect many products to struggle.
 
 ## Agents pursue goals, not screens
 
-Humans can tolerate messy interfaces because they bring judgment, patience, and context. They can click around, read labels, recover from ambiguity, ask someone in Slack, and decide that a weird warning probably does not matter.
+Humans can tolerate messy interfaces because they bring judgment, patience, and context. They click around, read labels, recover from ambiguity, ask someone in Slack, and decide that a weird warning probably does not matter.
 
-Agents are worse at that kind of product anthropology. They need explicit affordances. They need names that mean something. They need operations with clear preconditions, side effects, and outcomes.
+Agents are worse at that kind of product anthropology. They need explicit affordances, names that mean something, and operations with clear preconditions, side effects, and outcomes.
 
-Most APIs were not designed that way. They were designed as remote access to internal objects.
+Most APIs were not designed that way. They were designed as remote access to internal objects:
 
 ```text
 POST /subscriptions/{id}/addons
@@ -52,7 +52,7 @@ POST /coupons/apply
 DELETE /discounts/{id}
 ```
 
-Those endpoints may be fine for an integration written by an engineer who already understands the product. They are much less useful for an agent asked to do something higher level:
+Those endpoints may be fine for an integration written by an engineer who already understands the product. They are weaker when an agent is asked to do something higher level:
 
 ```text
 retain this customer
@@ -65,19 +65,15 @@ The gap between those two layers is where agentic product design lives.
 
 ## MCP is transport, not product design
 
-MCP can make tools discoverable to a model. That is useful. But a protocol does not repair weak product semantics.
+MCP can make tools discoverable to a model. That is useful. It does not repair weak product semantics.
 
-If the underlying actions are low-level, inconsistent, unsafe, or full of hidden side effects, wrapping them in MCP only makes the confusion easier to reach.
+If the underlying actions are low-level, inconsistent, unsafe, or full of hidden side effects, wrapping them in MCP only makes the confusion easier to reach. A bad API behind an MCP server is still a bad API. It is just easier for an agent to misuse.
 
-A bad API behind an MCP server is still a bad API. It is just easier for an agent to misuse.
-
-## Capability design is the real work
+## I want capabilities, not endpoint wrappers
 
 An agent-ready product needs a capability layer. Not just endpoints. Not just generated OpenAPI descriptions. Capabilities.
 
-A capability is a product-level action with a meaningful outcome.
-
-Bad shape:
+A capability is a product-level action with a meaningful outcome. This is the weak shape:
 
 ```json
 {
@@ -89,7 +85,7 @@ Bad shape:
 }
 ```
 
-Better shape:
+This is closer to the shape I want:
 
 ```json
 {
@@ -103,13 +99,11 @@ Better shape:
 }
 ```
 
-The second interface is not just syntactic sugar. It carries intent. It exposes constraints. It gives the platform a place to enforce policy, explain tradeoffs, and produce an auditable result.
+The second interface is not just nicer naming. It carries intent, exposes constraints, gives the platform a place to enforce policy, and creates an auditable result. That is the difference between an API that lets an agent mutate state and an interface that lets an agent operate the product.
 
-That is the difference between an API that lets an agent mutate state and an interface that lets an agent operate the product.
+## Good agentic interfaces are boring
 
-## Good agentic interfaces are boring in specific ways
-
-The hard part is not making the interface feel magical. The hard part is making it boring enough to trust.
+I do not want agent-facing actions to feel magical. I want them boring enough to trust.
 
 Agent-facing actions should be:
 
@@ -130,7 +124,7 @@ If an operation cannot safely be retried, say so. If it sends an email, say so. 
 
 ## The UI is no longer the only product surface
 
-For years, product quality mostly meant human UX. Is the workflow clear? Are the buttons obvious? Does the user understand what happened?
+For years, product quality mostly meant human UX: is the workflow clear, are the buttons obvious, does the user understand what happened?
 
 Agentic UX asks a different question:
 
@@ -144,7 +138,7 @@ A product with a beautiful UI and a chaotic backend will struggle here. The agen
 
 ## This punishes accidental architecture
 
-The companies that will struggle are not necessarily the ones without AI teams. They are the ones whose products grew through years of local exceptions:
+The products I worry about are not necessarily the products without AI teams. I worry about products that grew through years of local exceptions:
 
 ```text
 one-off workflows
@@ -155,41 +149,25 @@ permissions checked only in the UI
 business rules copied across layers
 ```
 
-That architecture was already expensive. Agents make it more visible.
+That architecture was already expensive. Agents make it more visible. A human can learn the mess. An agent can be prompted around it for a while. Durable autonomy requires the system itself to become more legible.
 
-A human can learn the mess. An agent can be prompted around it for a while. But durable autonomy requires the system itself to become more legible.
-
-This is why agentic software is not only an AI problem. It is a domain modeling problem. It is an API design problem. It is an authorization problem. It is an observability problem. It is a product semantics problem.
-
-## The likely winners
-
-The winners in B2B AI will not simply be the companies with the most agents. They will be the companies with the cleanest capability surfaces.
-
-That means:
-
-```text
-clear domain boundaries
-high-level product actions
-explicit constraints
-safe execution semantics
-structured outcomes
-strong audit trails
-```
-
-The model matters, but the model is not the moat. Models will keep improving and becoming easier to call. The harder asset is a product whose capabilities are coherent enough for agents to operate without turning the system into a slot machine.
+This is why agentic software is not only an AI problem. It is a domain modeling problem, API design problem, authorization problem, observability problem, and product semantics problem.
 
 ## The practical test
 
-A useful test for any SaaS product is simple:
+The practical test I use is:
 
 ```text
-Could an agent operate this product without pretending to be a human?
+Could an agent operate this product without inheriting every leak in the internal model?
 ```
 
-If the answer is no, the product is not really agent-ready. It may have APIs. It may have MCP. It may have AI features. But it does not yet have an agentic interface.
+If the answer is no, the product is not really agent-ready. It may have APIs, MCP, and AI features, but it does not yet have an agentic interface.
 
 The work starts by identifying the real capabilities of the product and exposing them as safe, constrained, observable actions.
 
-Agents do not want your CRUD APIs.
+Agents do not want your CRUD APIs. They want the ability to get useful work done without becoming responsible for your accidental architecture.
 
-They want the ability to get useful work done without inheriting every leak in your internal model.
+## Related essays
+
+- [Agent APIs need an intent layer](/posts/agents-apis-and-product-signal.html)
+- [Architecture is the cost structure of change](/posts/architecture-is-the-cost-structure-of-change.html)

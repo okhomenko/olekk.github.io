@@ -1,17 +1,18 @@
 ---
-layout: layouts/base.njk
-title: Encryption Keys Are Product Boundaries
-description: In multi-tenant B2B SaaS, key management is not just encryption plumbing. It models tenant authority, jurisdiction, deletion, and enterprise trust.
+layout: layouts/post.njk
+title: Encryption keys are product boundaries
+description: "How I think about key design in multi-tenant SaaS: customer keys should model authority, jurisdiction, deletion, and enterprise trust."
 date: 2024-11-12
 tags:
   - posts
   - engineering
   - architecture
+tagsText: Security, Architecture, B2B SaaS
 ---
 
-# Encryption Keys Are Product Boundaries
+The rule I use for encryption in multi-tenant SaaS is simple: keys should model authority, not tables.
 
-Most SaaS teams start with the same comforting checklist:
+It is easy to stop at the comforting checklist:
 
 ```text
 Database encryption: enabled
@@ -19,9 +20,7 @@ S3 encryption: enabled
 KMS: enabled
 ```
 
-That is not wrong. It is just incomplete.
-
-Encryption at rest is a security baseline. It does not automatically answer the questions that matter once the product becomes a serious multi-tenant B2B system:
+That checklist matters, but it is not the design. Encryption at rest is a baseline. The harder questions show up when the product has serious tenants, enterprise buyers, regional promises, audit requirements, and deletion obligations.
 
 ```text
 Can we suspend one merchant without touching everyone else?
@@ -32,27 +31,21 @@ Can we show auditors who had decrypt capability?
 Can we explain what happens when an end user asks to be deleted?
 ```
 
-Those are not only security questions. They are product architecture questions.
+Those are product architecture questions wearing security clothes. When I review a key model, I am really asking whether the cryptography reflects the business boundaries the product claims to have.
 
-The mistake is treating keys as storage implementation details. In a multi-tenant SaaS product, keys should model authority.
+## The key is the boundary
 
-## KMS is the service. The key is the boundary.
+A cloud KMS gives the machinery: hardened storage, policies, audit logs, regional placement, rotation, and cryptographic operations. The important decision is not merely "use KMS." The important decision is what each key represents.
 
-A cloud Key Management Service gives you the machinery: hardened key storage, access policies, audit logs, regional placement, rotation, and cryptographic operations.
-
-But the important design decision is not merely "use KMS."
-
-The important design decision is: **what does each key represent?**
-
-A poor answer is:
+A weak model is:
 
 ```text
 one production key for everything
 ```
 
-That gives you encryption, but it does not give you strong tenant isolation. If one key protects all tenants, then the key does not map to a meaningful business, legal, or operational boundary.
+That gives encryption, but it does not give much control. If one key protects every tenant, the key does not map to a meaningful business, legal, or operational boundary.
 
-A better answer is:
+The model I prefer for serious B2B SaaS is:
 
 ```text
 one customer-managed key per merchant per region
@@ -72,21 +65,13 @@ KMS
      └── DEK: event_payload_object
 ```
 
-Now the key hierarchy matches the product hierarchy.
+Now the key hierarchy matches the product hierarchy. The merchant is the customer boundary. The region is the jurisdiction boundary. The data encryption key is the storage granularity.
 
-The merchant is the customer boundary. The region is the jurisdiction boundary. The data encryption key is the storage granularity.
+## I do not default to user keys
 
-That is the design principle:
+When a product stores information about a merchant's users, one tempting answer is one key per end user. I do not start there.
 
-> Keys should model authority, not tables.
-
-## Merchant keys are not user keys.
-
-If you collect information about a merchant's users, it is tempting to think the cleanest model is one key per end user.
-
-That is usually the wrong design.
-
-It sounds elegant on a whiteboard, but it becomes a lifecycle problem in production:
+It sounds elegant on a whiteboard, but in production it usually creates a lifecycle problem:
 
 ```text
 too many keys
@@ -97,7 +82,7 @@ messy deletion semantics
 little real product value
 ```
 
-In most B2B SaaS systems, the merchant is the legal and product boundary. The end user is the data subject. Those are different boundaries.
+In most B2B SaaS systems, the merchant is the legal and product boundary. The end user is the data subject. Those are different boundaries, so I do not want one mechanism pretending to solve both.
 
 The merchant-level key answers questions like:
 
@@ -115,11 +100,11 @@ The end-user deletion workflow answers a different question:
 Can we remove this person's records from the active system and ensure derived copies expire or are deleted according to policy?
 ```
 
-Do not overload one mechanism to solve both problems.
+That distinction is where a lot of key designs go wrong. They try to use cryptography as a shortcut for data lifecycle work. It usually makes both worse.
 
-## User deletion and merchant deletion are different workflows.
+## Deletion has two levels
 
-When an end user asks to be deleted, you usually should not destroy the merchant's master key. That would delete more than the user. It would make the merchant's whole dataset unreadable.
+When an end user asks to be deleted, I usually do not want to destroy the merchant's master key. That deletes far more than the user. It makes the merchant's whole dataset unreadable.
 
 User deletion should be a data workflow:
 
@@ -134,9 +119,7 @@ User deletion should be a data workflow:
 - let backups age out under a documented retention window
 ```
 
-Merchant deletion is different.
-
-When the merchant terminates, or when you need to remove the entire account, the merchant-level key becomes powerful:
+Merchant deletion is different. When the merchant terminates, or when the whole account must be removed, the merchant-level key becomes powerful:
 
 ```text
 - disable the merchant CMK
@@ -147,35 +130,31 @@ When the merchant terminates, or when you need to remove the entire account, the
 - preserve only legally required billing or audit records under a separate policy
 ```
 
-That gives you two levels of control:
+The operating model becomes:
 
 ```text
 end-user deletion = data-layer erasure
 merchant deletion = cryptographic erasure boundary
 ```
 
-This distinction matters because auditors, enterprise buyers, and regulators do not want vague claims. They want to understand control scope.
+That is the kind of answer enterprise buyers and auditors can reason about. It names the control scope instead of hiding behind "encrypted at rest."
 
-## Region is part of the key model.
+## Region belongs in the model
 
-For EU customers, key placement is not trivia.
+For EU customers, key placement is not a footnote. If EU tenant data is encrypted under an EU-region key, and that key cannot be used outside the region, the architecture gives you a concrete residency control. That is stronger than a slide saying "we keep EU data in Europe."
 
-If EU tenant data is encrypted under an EU-region key, and the key cannot be used outside that region, the architecture gives you a concrete data-residency control. It is stronger than a slide saying "we keep EU data in Europe."
-
-The system should make the invariant hard to violate:
+I want the system to make the invariant hard to violate:
 
 ```text
 EU merchant data -> EU storage -> EU KMS key
 US merchant data -> US storage -> US KMS key
 ```
 
-This is where key design becomes compliance-by-design instead of compliance-by-documentation.
+This is the difference between compliance-by-documentation and compliance-by-design. The first asks people to remember the promise. The second puts the promise into the shape of the system.
 
-## Keys become product features.
+## Keys become product features
 
-Once keys map to real product boundaries, they stop being hidden infrastructure.
-
-They become features you can sell, operate, and prove:
+Once keys map to real product boundaries, they stop being hidden infrastructure. They become features the business can sell, operate, and prove:
 
 ```text
 merchant-level isolation
@@ -187,9 +166,7 @@ future BYOK support
 audit-ready deletion evidence
 ```
 
-That is why "we use KMS" is not enough.
-
-The serious version is:
+That is why I do not find "we use KMS" persuasive by itself. The serious version sounds more like this:
 
 ```text
 Each merchant's protected data is encrypted under merchant- and region-scoped customer-managed keys. End-user deletion is handled through data deletion and bounded retention. Merchant-level deletion can be enforced cryptographically through key disablement and deletion.
@@ -197,9 +174,9 @@ Each merchant's protected data is encrypted under merchant- and region-scoped cu
 
 That sentence is architecture, security, compliance, and product strategy in one place.
 
-## The operating rule
+## The rule I use
 
-The useful mental model is simple:
+The mental model I come back to is:
 
 ```text
 CMK = authority boundary
@@ -208,12 +185,11 @@ DEK = data granularity
 application workflow = deletion semantics
 ```
 
-If you use one key for everything, you get encryption but not much control.
+One key for everything gives encryption without much control. One key per user often creates operational tax without matching the real legal boundary. Merchant- and region-scoped keys make the cryptography reflect how the business actually works.
 
-If you use one key per user, you probably created an operational tax without matching the real legal boundary.
+That is the point: in multi-tenant B2B SaaS, encryption keys are not only security plumbing. They are product boundaries.
 
-If you scope keys by merchant and region, then your cryptography starts to reflect how the business actually works.
+## Related essays
 
-That is the point: in multi-tenant B2B SaaS, encryption keys are not just security plumbing.
-
-They are product boundaries.
+- [Architecture is the cost structure of change](/posts/architecture-is-the-cost-structure-of-change.html)
+- [Growth engineering is the business of reducing the cost of learning](/posts/growth-engineering-cost-of-learning.html)

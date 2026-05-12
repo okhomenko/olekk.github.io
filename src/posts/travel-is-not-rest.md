@@ -74,4 +74,10 @@ If running matters to me on the trip, I would choose a base near a good route. A
 
 I would build the trip less like a highlight reel and more like a training block. Stress is fine. Novelty is fine. Movement is fine. But stress needs recovery. Novelty needs repetition. Movement needs stillness.
 
-The lesson is not that travel is bad. The lesson is that I can make travel feel like work if I add too much friction. The better version for us has fewer places, fewer transitions, more boring mornings, more repeatable routes, and more room to quit while the day still feels good. That is not less travel. That is the kind of travel I want to get better at planning.
+The lesson is not that travel is bad. The lesson is that I can make travel feel like work if I add too much friction. The better version for us has fewer places, fewer transitions, more boring mornings, more repeatable routes, and more room to quit while the day still feels good.
+
+That is not less travel. That is the kind of travel I want to get better at planning.
+
+## Related essays
+
+- [My first 100K at Canyons](/posts/first-100k-canyons-endurance-runs.html)
