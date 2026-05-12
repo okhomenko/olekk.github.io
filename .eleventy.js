@@ -3,6 +3,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/ads.txt": "ads.txt" });
   eleventyConfig.addPassthroughCopy({ "src/CNAME": "CNAME" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon.svg": "favicon.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon-light.svg": "favicon-light.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon-dark.svg": "favicon-dark.svg" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.svg": "og-default.svg" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.png": "og-default.png" });
 
