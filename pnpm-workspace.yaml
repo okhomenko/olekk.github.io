@@ -1,0 +1,8 @@
+packages:
+  - "."
+
+# 10 days, measured in minutes. This matches `.npmrc`'s `min-release-age=10`.
+minimumReleaseAge: 14400
+minimumReleaseAgeStrict: true
+minimumReleaseAgeIgnoreMissingTime: false
+blockExoticSubdeps: true

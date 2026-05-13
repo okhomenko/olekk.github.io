@@ -1,11 +1,18 @@
 {
+  "packageManager": "npm@11.14.1",
+  "engines": {
+    "node": ">=22.9.0",
+    "npm": ">=11.14.1"
+  },
   "scripts": {
-    "build": "npm run build:site && npm run seo",
+    "build": "npm run og && npm run build:site && npm run seo",
     "build:site": "eleventy",
+    "og": "node scripts/generate-og-images.mjs",
     "seo": "node scripts/generate-seo.mjs _site",
-    "dev": "eleventy --serve"
+    "dev": "npm run og && eleventy --serve"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "3.1.2",
+    "@resvg/resvg-js": "2.6.2"
   }
 }

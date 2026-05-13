@@ -7,8 +7,6 @@ tags:
   - running
 tagsText: "Running, endurance, ultramarathon"
 layout: layouts/post.njk
-ogImage: /og/first-100k-canyons.png
-ogImageAlt: "My first 100K at Canyons. I thought the early miles were free. The mountain collected interest."
 ---
 
 The lesson from my first 100K was simple: slower is faster when the cost of going too hard shows up later.
