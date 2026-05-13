@@ -6,6 +6,7 @@ const ROOT = process.cwd();
 const POSTS_DIR = path.join(ROOT, 'src', 'posts');
 const OUTPUT_DIR = path.join(ROOT, 'src', 'og', 'posts');
 const PROFILE_PHOTO = path.join(ROOT, 'src', 'profile-photo.png');
+const LOGO = path.join(ROOT, 'src', 'logo.svg');
 
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -130,7 +131,7 @@ function textBlock(lines, x, firstBaseline, fontSize, lineHeight, color, family,
   return `<text font-family="${family}" font-size="${fontSize}" font-weight="${weight}" fill="${color}">${tspans.join('')}</text>`;
 }
 
-function cardSvg(data, slug, profilePhotoBase64) {
+function cardSvg(data, slug, profilePhotoBase64, logoBase64) {
   const title = data.ogTitle || data.title;
   const deck = data.ogDeck || data.description;
   const titleLength = String(title || '').length;
@@ -152,10 +153,8 @@ function cardSvg(data, slug, profilePhotoBase64) {
   <rect width="${WIDTH}" height="${HEIGHT}" fill="#fbfbfa" />
   <rect x="40" y="40" width="1120" height="550" fill="#fbfbfa" stroke="#d8d8d4" stroke-width="2" />
 
-  <text x="88" y="118" font-family="Georgia, DejaVu Serif, serif" font-size="52" font-weight="700">
-    <tspan fill="#d21d24">O</tspan><tspan fill="#18191b">K</tspan>
-  </text>
-  <text x="190" y="112" fill="#555555" font-size="26" font-family="Arial, DejaVu Sans, sans-serif">
+  <image href="data:image/svg+xml;base64,${logoBase64}" x="80" y="72" width="64" height="64" />
+  <text x="164" y="112" fill="#555555" font-size="26" font-family="Arial, DejaVu Sans, sans-serif">
     olekk.com
   </text>
   <image href="data:image/png;base64,${profilePhotoBase64}" x="964" y="78" width="144" height="144" clip-path="url(#avatarClip)" />
@@ -186,6 +185,7 @@ await fs.rm(OUTPUT_DIR, { recursive: true, force: true });
 await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
 const profilePhotoBase64 = await fs.readFile(PROFILE_PHOTO, 'base64');
+const logoBase64 = await fs.readFile(LOGO, 'base64');
 const files = (await fs.readdir(POSTS_DIR))
   .filter((file) => file.endsWith('.md'))
   .sort();
@@ -197,7 +197,7 @@ for (const file of files) {
   const markdown = await fs.readFile(filePath, 'utf8');
   const data = parseFrontmatter(markdown, filePath);
   const slug = fileSlug(filePath);
-  const svg = cardSvg(data, slug, profilePhotoBase64);
+  const svg = cardSvg(data, slug, profilePhotoBase64, logoBase64);
   const resvg = new Resvg(svg, {
     fitTo: {
       mode: 'width',
