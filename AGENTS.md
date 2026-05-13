@@ -153,6 +153,16 @@ Senior engineering tone means naming mechanisms and boundaries. Do not merely sa
 
 ## Writing posts
 
+When writing an essay from a thesis, always use this sequence before drafting:
+
+1. Research the topic.
+2. Find reference links, including primary sources where possible.
+3. Identify deep thinkers, durable frameworks, or foundational work connected to the topic.
+4. State the problem statement clearly before writing the essay.
+5. Then write the essay for the thesis.
+
+The draft should make the research visible through concrete mechanisms, accurate references, and a sharper problem statement. Do not turn the essay into a literature review; use the research to strengthen the operating rule.
+
 Write posts from the source of authority the author actually has.
 
 When the source is personal experience, use first person. `I`, `we`, `me`, `my wife`, and concrete trip/race/project details are appropriate when they explain the decision, tradeoff, or changed belief. Do not turn a self-lesson into a lecture aimed at an abstract reader.
