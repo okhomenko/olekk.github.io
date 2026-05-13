@@ -18,6 +18,25 @@ header {
   padding-bottom: 18px;
 }
 
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-logo {
+  display: block;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+}
+
+.site-logo img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
 .site-title {
   margin: 0 0 6px;
   font-size: 1.8rem;
@@ -166,6 +185,16 @@ footer {
 
   html {
     font-size: 17px;
+  }
+
+  .site-brand {
+    align-items: flex-start;
+  }
+
+  .site-logo,
+  .site-logo img {
+    width: 34px;
+    height: 34px;
   }
 
   .profile-photo {
