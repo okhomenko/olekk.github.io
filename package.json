@@ -1,7 +1,7 @@
 {
   "packageManager": "npm@11.14.1",
   "engines": {
-    "node": ">=22.9.0",
+    "node": ">=24.0.0",
     "npm": ">=11.14.1"
   },
   "scripts": {
