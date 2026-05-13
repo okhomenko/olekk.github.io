@@ -7,8 +7,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/favicon-light.svg": "favicon-light.svg" });
   eleventyConfig.addPassthroughCopy({ "src/favicon-dark.svg": "favicon-dark.svg" });
   eleventyConfig.addPassthroughCopy({ "src/logo.svg": "logo.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/profile-photo.png": "profile-photo.png" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.svg": "og-default.svg" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.png": "og-default.png" });
+  eleventyConfig.addPassthroughCopy({ "src/og": "og" });
 
   eleventyConfig.addGlobalData("site", {
     url: "https://olekk.com",
@@ -19,7 +21,7 @@ module.exports = function (eleventyConfig) {
     github: "https://github.com/okhomenko",
     defaultOgImage: "/og-default.png",
     defaultOgImageAlt:
-      "Oleksandr Khomenko. Engineering systems, AI-enabled development, and endurance-driven thinking.",
+      "Oleksandr Khomenko. Most teams do not have a code problem. They have a system that makes good code expensive.",
     defaultOgImageWidth: 1200,
     defaultOgImageHeight: 630,
     defaultOgImageType: "image/png",

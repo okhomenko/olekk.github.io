@@ -1,12 +1,14 @@
 ---
 title: "My first 100K at Canyons"
-description: "What I learned in my first 100K: flat Florida training, mountain downhills, blown quads, patience, and the practical meaning of slower is faster."
+description: "I thought the early miles were free. The mountain collected interest: blown quads, slower movement, and patience as a racing strategy."
 date: 2025-04-26
 tags:
   - posts
   - running
 tagsText: "Running, endurance, ultramarathon"
 layout: layouts/post.njk
+ogImage: /og/first-100k-canyons.png
+ogImageAlt: "My first 100K at Canyons. I thought the early miles were free. The mountain collected interest."
 ---
 
 The lesson from my first 100K was simple: slower is faster when the cost of going too hard shows up later.

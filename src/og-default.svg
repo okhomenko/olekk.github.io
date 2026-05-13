@@ -1,15 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#0f172a" />
-  <text x="80" y="250" fill="#ffffff" font-size="56" font-family="Arial, Helvetica, sans-serif">
-    Oleksandr Khomenko
-  </text>
-  <text x="80" y="340" fill="#94a3b8" font-size="32" font-family="Arial, Helvetica, sans-serif">
-    Engineering systems, AI-enabled development,
-  </text>
-  <text x="80" y="390" fill="#94a3b8" font-size="32" font-family="Arial, Helvetica, sans-serif">
-    and endurance-driven thinking.
-  </text>
-  <text x="80" y="520" fill="#64748b" font-size="24" font-family="Arial, Helvetica, sans-serif">
+  <defs>
+    <clipPath id="avatarClip">
+      <circle cx="1036" cy="150" r="72" />
+    </clipPath>
+  </defs>
+  <rect width="1200" height="630" fill="#fbfbfa" />
+  <rect x="40" y="40" width="1120" height="550" fill="#fbfbfa" stroke="#d8d8d4" stroke-width="2" />
+  <image href="/logo.svg" x="80" y="72" width="64" height="64" />
+  <text x="164" y="112" fill="#555555" font-size="26" font-family="Arial, Helvetica, sans-serif">
     olekk.com
+  </text>
+  <image href="/profile-photo.png" x="964" y="78" width="144" height="144" clip-path="url(#avatarClip)" />
+  <circle cx="1036" cy="150" r="73" fill="none" stroke="#d8d8d4" stroke-width="2" />
+  <line x1="80" y1="168" x2="850" y2="168" stroke="#111111" stroke-width="3" />
+
+  <text x="80" y="286" fill="#111111" font-size="72" font-family="Georgia, 'Times New Roman', serif">
+    Most teams do not
+  </text>
+  <text x="80" y="370" fill="#111111" font-size="72" font-family="Georgia, 'Times New Roman', serif">
+    have a code problem.
+  </text>
+
+  <text x="80" y="452" fill="#333333" font-size="34" font-family="Arial, Helvetica, sans-serif">
+    They have a system that makes good code expensive.
+  </text>
+  <text x="80" y="550" fill="#666666" font-size="22" font-family="Arial, Helvetica, sans-serif">
+    Architecture, AI workflows, developer infrastructure, product learning, endurance.
   </text>
 </svg>
