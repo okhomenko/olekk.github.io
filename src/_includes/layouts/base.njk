@@ -37,10 +37,36 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f8f6f1" />
+    <script>
+      (function () {
+        var storageKey = 'theme';
+        var colors = { light: '#f8f6f1', dark: '#151515' };
+        var storedTheme;
+
+        try {
+          storedTheme = localStorage.getItem(storageKey);
+        } catch (error) {
+          storedTheme = null;
+        }
+
+        var preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        var theme = storedTheme === 'light' || storedTheme === 'dark' ? storedTheme : preferredTheme;
+        var themeColor = document.querySelector('meta[name="theme-color"]');
+
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+
+        if (themeColor) {
+          themeColor.setAttribute('content', colors[theme]);
+        }
+      })();
+    </script>
 
     <title>{{ fullTitle }}</title>
 
-    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" data-theme-icon />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-light.svg" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)" />
 
@@ -79,25 +105,25 @@
     {% endif %}
 
     <link rel="stylesheet" href="/style.css" />
+    <script src="/theme.js" defer></script>
   </head>
   <body>
     <header>
-      <div class="site-brand">
-        <a class="site-logo" href="/" aria-label="Oleksandr Khomenko home">
-          <img src="/logo.svg" alt="" width="40" height="40" />
-        </a>
-        <div>
-          <p class="site-title"><a href="/">Oleksandr Khomenko</a></p>
-          <p class="tagline">Engineering systems, AI-assisted development, and software organizations under real constraints.</p>
-        </div>
-      </div>
-      <nav>
+      <p class="site-title"><a href="/">Oleksandr Khomenko</a></p>
+      <p class="tagline">Engineering systems, AI-assisted development, and software organizations under real constraints.</p>
+      <nav aria-label="Primary">
         <a href="/">Home</a>
         <a href="/engineering.html">Engineering</a>
         <a href="/running.html">Running</a>
         <a href="/life.html">Life</a>
         <a href="/about.html">About</a>
         <a href="/links.html">Links</a>
+        <button class="theme-toggle" type="button" aria-label="Enable dark mode" aria-pressed="false" data-theme-toggle>
+          <span class="theme-toggle-track" aria-hidden="true">
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-label">Dark</span>
+        </button>
       </nav>
     </header>
 

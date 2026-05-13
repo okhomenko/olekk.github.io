@@ -1,8 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="165 200 930 930" role="img" aria-labelledby="title desc">
   <title id="title">OK logo</title>
-  <desc id="desc">A red O and black K on a white background.</desc>
-  <rect x="165" y="200" width="930" height="930" fill="#fff"/>
-  <g transform="translate(0 1254) scale(0.1 -0.1)" fill="#d21d24" stroke="none">
+  <desc id="desc">A red O and black K on a theme-aware background.</desc>
+  <style>
+    .logo-bg { fill: #f8f6f1; }
+    .logo-o { fill: #d21d24; }
+    .logo-k { fill: #18191b; }
+    @media (prefers-color-scheme: dark) {
+      .logo-bg { fill: #151515; }
+      .logo-o { fill: #f05257; }
+      .logo-k { fill: #e8e3d8; }
+    }
+  </style>
+  <rect class="logo-bg" x="165" y="200" width="930" height="930"/>
+  <g class="logo-o" transform="translate(0 1254) scale(0.1 -0.1)" stroke="none">
     <path d="M4165 9365 c-142 -23 -261 -61 -390 -125 -349 -171 -578 -463
 -672 -855 -14 -60 -17 -167 -23 -755 -8 -768 -5 -745 -83 -894 -43 -83 -144
 -197 -186 -211 -16 -5 -21 -14 -21 -38 0 -27 6 -36 36 -52 53 -28 146 -134
@@ -16,7 +26,7 @@ l22 -80 4 -2090 c3 -2263 5 -2178 -49 -2360 -74 -246 -228 -388 -424 -387
 -260 0 -433 224 -475 614 -14 134 -14 3988 0 4127 27 257 124 460 258 538 85
 50 139 64 233 60 74 -3 96 -8 154 -36z"/>
   </g>
-  <g transform="translate(0 1254) scale(0.1 -0.1)" fill="#18191b" stroke="none">
+  <g class="logo-k" transform="translate(0 1254) scale(0.1 -0.1)" stroke="none">
     <path d="M6110 9265 c0 -44 4 -57 18 -61 122 -40 243 -143 304 -259 74 -142
 69 82 66 -2632 l-3 -2438 -23 -65 c-55 -150 -147 -263 -262 -317 -36 -17 -73
 -34 -82 -37 -15 -4 -18 -17 -18 -66 l0 -60 850 0 851 0 -3 61 -3 60 -51 18
