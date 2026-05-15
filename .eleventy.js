@@ -26,6 +26,9 @@ module.exports = function (eleventyConfig) {
     defaultOgImageWidth: 1200,
     defaultOgImageHeight: 630,
     defaultOgImageType: "image/png",
+    analytics: {
+      cloudflareBeaconToken: "0c5fa71fc7784c68afc245daaa3071d9",
+    },
   });
 
   eleventyConfig.addFilter("htmlDateString", (dateObj) => {

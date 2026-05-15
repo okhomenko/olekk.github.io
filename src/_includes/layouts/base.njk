@@ -134,5 +134,11 @@
     <footer>
       Plain HTML. Durable links. Generated with Eleventy.
     </footer>
+
+    {% if site.analytics.cloudflareBeaconToken %}
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"{{ site.analytics.cloudflareBeaconToken }}"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+    {% endif %}
   </body>
 </html>
