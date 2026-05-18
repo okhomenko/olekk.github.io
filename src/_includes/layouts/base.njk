@@ -15,6 +15,32 @@
     {% set ogImageHeight = ogImageHeight or site.defaultOgImageHeight %}
     {% set ogImageType = ogImageType or site.defaultOgImageType %}
     {% set pageStructuredData = structuredData %}
+    {% if not pageStructuredData and page.url == "/" %}
+      {% set pageStructuredData = [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: site.author,
+          url: site.url,
+          sameAs: site.socialProfiles,
+          knowsAbout: [
+            'Software engineering',
+            'AI-enabled software development',
+            'Product architecture',
+            'Systems thinking',
+            'Technical leadership',
+            'Endurance running'
+          ]
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: site.title,
+          url: site.url,
+          description: pageDescription
+        }
+      ] %}
+    {% endif %}
     {% if not pageStructuredData and date %}
       {% set pageStructuredData = {
         '@context': 'https://schema.org',
@@ -104,12 +130,30 @@
     </script>
     {% endif %}
 
-    <link rel="stylesheet" href="/style.css?v=20260513-theme-toggle" />
+    <link rel="stylesheet" href="/style.css?v=20260518-identity" />
     <script src="/theme.js?v=20260513-theme-toggle" defer></script>
   </head>
   <body>
     <header>
-      <p class="site-title"><a href="/">Oleksandr Khomenko</a></p>
+      <p class="site-title">
+        <a href="/">Oleksandr Khomenko <span class="site-title-flag" role="img" aria-label="Ukrainian flag">🇺🇦</span></a>
+      </p>
+      <div class="identity-links header-identity" aria-label="Profiles">
+        <a rel="me" href="{{ site.social.github.url }}" aria-label="{{ site.social.github.label }} profile for {{ site.social.github.handle }}">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M7.2 9.1 6.4 5.7l3.2 1.2a8.3 8.3 0 0 1 4.8 0l3.2-1.2-.8 3.4a6 6 0 0 1 1.1 3.5c0 3.2-2.6 5.8-5.9 5.8s-5.9-2.6-5.9-5.8c0-1.3.4-2.5 1.1-3.5Z" />
+            <path d="M9.4 18.2v-1.6c0-.7.5-1.2 1.2-1.2h2.8c.7 0 1.2.5 1.2 1.2v1.6" />
+          </svg>
+          <span>{{ site.social.github.handle }}</span>
+        </a>
+        <a rel="me" href="{{ site.social.twitter.url }}" aria-label="{{ site.social.twitter.label }} profile for {{ site.social.twitter.handle }}">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+            <path d="M5 5l14 14" />
+            <path d="M19 5 5 19" />
+          </svg>
+          <span>{{ site.social.twitter.handle }}</span>
+        </a>
+      </div>
       <p class="tagline">Engineering systems, AI-assisted development, and software organizations under real constraints.</p>
       <nav aria-label="Primary">
         <a href="/">Home</a>
@@ -132,7 +176,12 @@
     </main>
 
     <footer>
-      Plain HTML. Durable links. Generated with Eleventy.
+      <span>Plain HTML. Durable links. Generated with Eleventy.</span>
+      <span class="footer-links" aria-label="Profiles">
+        <a rel="me" href="{{ site.social.github.url }}">GitHub</a>
+        <a rel="me" href="{{ site.social.twitter.url }}">Twitter/X</a>
+        <a rel="me" href="{{ site.social.linkedin.url }}">LinkedIn</a>
+      </span>
     </footer>
 
     {% if site.analytics.cloudflareBeaconToken %}

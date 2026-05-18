@@ -14,17 +14,17 @@
   <circle cx="1036" cy="150" r="73" fill="none" stroke="#d8d8d4" stroke-width="2" />
   <line x1="80" y1="168" x2="850" y2="168" stroke="#111111" stroke-width="3" />
 
-  <text x="80" y="286" fill="#111111" font-size="72" font-family="Georgia, 'Times New Roman', serif">
-    Most teams do not
+  <text x="80" y="286" fill="#111111" font-size="68" font-family="Georgia, 'Times New Roman', serif">
+    Notes from building
   </text>
-  <text x="80" y="370" fill="#111111" font-size="72" font-family="Georgia, 'Times New Roman', serif">
-    have a code problem.
+  <text x="80" y="366" fill="#111111" font-size="68" font-family="Georgia, 'Times New Roman', serif">
+    software and running long
   </text>
 
   <text x="80" y="452" fill="#333333" font-size="34" font-family="Arial, Helvetica, sans-serif">
-    They have a system that makes good code expensive.
+    Oleksandr Khomenko
   </text>
   <text x="80" y="550" fill="#666666" font-size="22" font-family="Arial, Helvetica, sans-serif">
-    Architecture, AI workflows, developer infrastructure, product learning, endurance.
+    Architecture, AI workflows, developer infrastructure, feedback, endurance.
   </text>
 </svg>

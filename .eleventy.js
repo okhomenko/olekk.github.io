@@ -1,4 +1,22 @@
 module.exports = function (eleventyConfig) {
+  const social = {
+    github: {
+      label: "GitHub",
+      handle: "@okhomenko",
+      url: "https://github.com/okhomenko",
+    },
+    twitter: {
+      label: "Twitter/X",
+      handle: "@okhomenko",
+      url: "https://x.com/okhomenko",
+    },
+    linkedin: {
+      label: "LinkedIn",
+      handle: "Oleksandr Khomenko",
+      url: "https://www.linkedin.com/in/okhomenko/",
+    },
+  };
+
   eleventyConfig.addPassthroughCopy({ "src/style.css": "style.css" });
   eleventyConfig.addPassthroughCopy({ "src/theme.js": "theme.js" });
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
@@ -19,10 +37,15 @@ module.exports = function (eleventyConfig) {
     description:
       "Essays on software engineering, AI-enabled development, product architecture, systems thinking, and endurance running.",
     author: "Oleksandr Khomenko",
-    github: "https://github.com/okhomenko",
+    social,
+    socialProfiles: [
+      social.github.url,
+      social.twitter.url,
+      social.linkedin.url,
+    ],
     defaultOgImage: "/og-default.png",
     defaultOgImageAlt:
-      "Oleksandr Khomenko. Most teams do not have a code problem. They have a system that makes good code expensive.",
+      "Oleksandr Khomenko. Notes from building software and running long.",
     defaultOgImageWidth: 1200,
     defaultOgImageHeight: 630,
     defaultOgImageType: "image/png",
