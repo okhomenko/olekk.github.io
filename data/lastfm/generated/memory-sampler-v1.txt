@@ -1,0 +1,437 @@
+# Memory Sampler v1
+# Source: data/lastfm/all-artist-songs.tsv
+# Intent: not top-played ranking; a broad "I listened to this over the years" sampler.
+
+## Modern heavy / alt-rock anchors
+Nothing More - This Is the Time (Ballast)
+Nothing More - Jenny
+Nothing More - Go To War
+Nothing More - Fade In / Fade Out
+Billy Talent - Try Honesty
+Billy Talent - Surrender
+Billy Talent - Fallen Leaves
+Billy Talent - Red Flag
+System of a Down - Lost in Hollywood
+System of a Down - Lonely Day
+System of a Down - Toxicity
+Bullet for My Valentine - Tears Don't Fall
+Crossfade - Cold
+P.O.D. - Youth of the Nation
+Three Days Grace - I Am Machine
+Three Days Grace - Painkiller
+Papa Roach - Scars
+Papa Roach - Lifeline
+Rammstein - DEUTSCHLAND
+Rammstein - Sonne
+Rammstein - Engel
+Rammstein - Ich will
+Rammstein - Mein Herz brennt
+Guano Apes - Open Your Eyes
+Guano Apes - Big in Japan
+Guano Apes - Lords of the Boards
+Guano Apes - No Speech
+Linkin Park - In the End
+Linkin Park - Numb
+Linkin Park - Breaking the Habit
+Korn - Falling Away From Me
+Metallica - Nothing Else Matters
+
+## Ukrainian / post-Soviet memory lane
+Okean Elzy - Еверест
+Okean Elzy - Човен
+Okean Elzy - Хтось в небо летить
+Океан Ельзи - Обійми
+Океан Ельзи - Без тебе
+Океан Ельзи - Не йди
+Океан Ельзи - Коли тебе нема
+Океан Ельзи - Стріляй
+Океан Ельзи - Я так хочу...
+druha rika - Три хвилини
+druha rika - Секрет
+The Hardkiss - Журавлі
+The Hardkiss - Жива
+The Hardkiss - Коханці
+The Hardkiss - Кораблі
+The Hardkiss - Прірва
+BoomBox - Наодинці
+BoomBox - Тримай мене
+BoomBox - Люди
+BoomBox - Квiти в волоссi
+BoomBox - Вахтерам
+Бумбокс - Вахтёрам
+Бумбокс - Та4то
+Бумбокс - Коля
+Бумбокс - Пєпєл
+Бумбокс - Стяги на стяги
+Odyn v kanoe - Небо
+Odyn v kanoe - Човен
+Odyn v kanoe - У мене немає дому
+Odyn v kanoe - Пообіцяй мені
+Antytila - Люди як кораблі
+Antytila - TDME
+Jamala - Крила
+Jamala - Заплуталась
+Kazka - Плакала
+Kazka - CRY
+Kazka - CRUSH
+Kazka - Пісня Сміливих Дівчат
+Khrystyna Soloviy - Синя пісня
+Khrystyna Soloviy - Шкідлива звичка
+Khrystyna Soloviy - Тримай
+Vivienne Mort - Пташечка
+TNMK - Янголи
+5'nizza - Але
+5'nizza - Nemae kul
+5'nizza - Солдат
+Фліт - Їжачок
+Мотор'ролла - 8-ий колір
+Воплі Відоплясова - Весна
+Vоплі Vідоплясова - Весна
+Мандри - Дорога
+Мандри - Русалки
+Тарас Чубай - Вона
+Тарас Чубай - Я піду в далекі гори - Remastered
+Скрябін - Спи собі сама
+Skryabin - Я сховаю тебе - Нова версія
+
+## Russian rock / post-Soviet rock
+Ария - Беспечный ангел
+Ария - Штиль - 2019 Remaster
+Ария - Герой асфальта
+Ария - Ангельская пыль
+Ария - Антихрист
+Ария - Воля и разум
+Ария - Всё, что было
+Кипелов - Я свободен!
+Валерий Кипелов, Сергей Маврин - Я свободен!
+Кино - Кукушка
+Кино - Спокойная ночь
+Кино - Группа крови
+Кино - Хочу перемен
+Кино - Пачка сигарет
+Кино - Звезда по имени солнце
+Кино - Закрой за мной дверь, я ухожу
+ДДТ - Что такое осень
+ДДТ - Это всё
+ДДТ - Метель
+ДДТ - Дождь
+ДДТ - Родина
+ДДТ - Просвистела
+Сплин - Выхода нет
+Сплин - Линия жизни
+Сплин - Феллини
+Сплин - Моё сердце
+Сплин - Орбит без сахара
+Сплин - Остаёмся зимовать
+Сплин - Романс
+Би-2 - Полковнику никто не пишет
+Би-2 - Варвара
+Би-2 - Серебро
+Би-2 - Мой рок-н-ролл
+Би-2 - Вечная призрачная встречная
+Би-2 - Компромисс
+Би-2 - Лётчик
+Би-2 - Молитва
+Nautilus Pompilius - Крылья
+Nautilus Pompilius - Князь тишины
+Nautilus Pompilius - Взгляд с экрана
+Nautilus Pompilius - Скованные одной цепью
+Nautilus Pompilius - Прогулки по воде
+Nautilus Pompilius - Дыхание
+Мумий Тролль - Vladivostok 2000 (Vladivostok 2000)
+Мумий Тролль - Delfiny (Dolphins)
+Мумий Тролль - Не очень
+Мумий Тролль - Без обмана
+Король и Шут - Кукла колдуна
+Король и Шут - Прыгну со скалы
+Король и Шут - Камнем по голове
+Король и Шут - Лесник
+Король и Шут - Проклятый старый дом
+Король и Шут - Дурак и молния
+Король и Шут - Ели мясо мужики
+Ляпис Трубецкой - Воины света
+Ляпис Трубецкой - Капитал
+Ляпис Трубецкой - Я верю
+Ляпис Трубецкой - Грай
+Animal Джаz - Три полоски
+Animal Jazz - Ангел (Remastered)
+Lumen - Гореть
+Lumen - Три пути
+Lumen - Sid & Nancy
+Slot - Круги на воде
+Slot - Бой!
+Slot - Две войны
+Zемфира - Знак бесконечность
+Zемфира - Ариведерчи
+Zемфира - Жить в твоей голове
+Zемфира - Джозеф
+Аквариум - Поезд в огне
+Аквариум - Город Золотой
+Алиса - Мое поколение
+Алиса - Небо славян
+Чайф - Ой-йо
+Чайф - Не спеши
+Чиж & Co - Фантом
+Чиж & Co - Вечная молодость
+Гражданская Оборона - Все идет по плану
+Егор Летов - Моя оборона
+
+## Pop / radio / guilty memory layer
+Lily Allen - The Fear
+Lily Allen - Not Fair
+Lily Allen - Fuck You
+Lily Allen - 22
+Lily Allen - Everyone's at It
+Lana Del Rey - Born to Die
+Lana Del Rey - Blue Jeans
+Lana Del Rey - Video Games
+Lana Del Rey - Summertime Sadness
+Lana Del Rey - Ride
+Katy Perry - Chained to the Rhythm
+Katy Perry - Roar
+Katy Perry - Dark Horse
+Katy Perry - Firework
+Katy Perry - Teenage Dream
+Katy Perry - Last Friday Night (T.G.I.F.)
+Katy Perry - Hot n Cold
+Bebe Rexha - I'm a Mess
+Bebe Rexha - Last Hurrah
+Daya - Insomnia
+Demi Lovato - Confident
+Miley Cyrus - Midnight Sky
+Miley Cyrus - Prisoner (feat. Dua Lipa)
+Lady Gaga - 911
+Lady Gaga - Bad Romance
+Rihanna - Where Have You Been
+Rihanna - We Found Love (feat. Calvin Harris)
+Sabrina Carpenter - Espresso
+Sabrina Carpenter - Please Please Please
+Taylor Swift - Anti-Hero
+Taylor Swift - Cruel Summer
+The Killers - Mr. Brightside
+The Temper Trap - Sweet Disposition
+The Temper Trap - Trembling Hands
+Coldplay - Yellow
+Coldplay - Paradise
+Coldplay - Don't Panic
+Coldplay - Viva la Vida
+Coldplay - Violet Hill
+Natalie Imbruglia - Torn
+Of Monsters and Men - Little Talks
+fun. - We Are Young (feat. Janelle Monáe)
+fun. - Some Nights
+Foster the People - Pumped Up Kicks
+Franz Ferdinand - Take Me Out
+The Offspring - You're Gonna Go Far, Kid
+The Offspring - The Kids Aren't Alright
+Green Day - Basket Case
+Green Day - Boulevard of Broken Dreams
+Goo Goo Dolls - Name
+Plain White T's - Hey There Delilah
+ABBA - Dancing Queen
+Spice Girls - Wannabe
+Britney Spears - Toxic
+Ricky Martin - Livin' La Vida Loca
+Cher - Believe
+
+## Electronic / trance / club / night-drive memory
+ATB - Justify
+ATB - Desperate Religion
+ATB - Beautiful Worlds
+ATB - Renegade
+ATB - Stars Come Out
+ATB - Ecstasy
+ATB - Don't Stop
+ATB - 9 AM
+ATB - Gravity
+ATB - My Everything
+Cazzette - Beam Me Up (Kill Mode) (Radio Edit)
+Cazzette - Run For Cover (Instrumental Mix)
+Cazzette - On The Road (Master Intro)
+Daft Punk - Instant Crush (feat. Julian Casablancas)
+Daft Punk - Get Lucky (feat. Pharrell Williams & Nile Rodgers)
+Daft Punk - Harder, Better, Faster, Stronger
+Daft Punk - Around the World
+Daft Punk - Giorgio by Moroder
+Four Tet - Two Thousand And Seventeen
+Four Tet - LA Trance
+Ferry Corsten - Punk (Arty Rock-n-Rolla Mix)
+4 Strings - Take Me Away (Into The Night)
+Above & Beyond - On a Good Day
+Darude - Sandstorm - radio edit
+Solarstone - Pure
+Tiësto - 10:35
+Skrillex - Bangarang - feat. Sirah
+Skrillex - Right In
+Röyksopp - What Else Is There ?
+Zero 7 - Destiny
+Zero 7 - Warm Sound
+Portishead - Glory Box
+Portishead - Roads
+Faithless - I Need Someone (feat. Nathan Ball & Caleb Femi) [Alok Remix] - Edit
+Paul Kalkbrenner - Part Seven
+Tycho - Awake
+Kiasmos - Looped
+Bonobo - Kong
+Bonobo - Second Sun
+Boards of Canada - Dayvan Cowboy
+
+## Post-rock / cinematic / ambient / instrumental memories
+Lost in Kiev - I'm Stuck
+Lost in Kiev - Under Close Surveillance
+Lost in Kiev - They're Coming
+Lost in Kiev - Hope, Fights & Disillusions
+Lost in Kiev - The Day I Ruined My Life
+Lost in Kiev - Lifelooper®
+Lost in Kiev - Persona
+Lost in Kiev - Mirrors
+God Is an Astronaut - Forever Lost
+God Is an Astronaut - All Is Violent, All Is Bright
+God Is an Astronaut - The End of the Beginning
+If These Trees Could Talk - From Roots to Needles
+If These Trees Could Talk - The Giving Tree
+If These Trees Could Talk - The First Fire
+Maybeshewill - Not for Want of Trying
+We Lost the Sea - A Gallant Gentleman
+The Evpatoria Report - Voskhod Project - Bonus
+Russian Circles - Hunter Moon
+Tides From Nebula - The Lifter
+Tides From Nebula - Dopamine
+Oh Hiroshima - Ellipse
+Oh Hiroshima - Ruach
+Yann Tiersen - Comptine d'un autre été, L'Après-midi
+Yann Tiersen - La valse d'Amélie - version orchestre
+Yann Tiersen - Summer 78
+Yann Tiersen - Sur le fil
+Yann Tiersen - Monochrome
+Clint Mansell - The Last Man
+Clint Mansell - Death Is a Disease
+Clint Mansell - Death Is the Road to Awe
+Clint Mansell - Together We Will Live Forever
+Clint Mansell - First Snow
+Clint Mansell - Lux Aeterna
+Hans Zimmer - Time
+Hans Zimmer - Cornfield Chase
+Hans Zimmer - Now We Are Free - From "Gladiator" Soundtrack
+Ramin Djawadi - Light of the Seven
+Ramin Djawadi - The Rains of Castamere
+Ramin Djawadi - Main Title Theme - Westworld
+Max Richter - A Catalogue of Afternoons
+Ólafur Arnalds - they sink
+Amethystium - Enchantment
+Amethystium - Ethereal
+Amethystium - Odyssey
+Kamal - Desiderata
+Kamal - Whispering Whales
+Kamal - Arctic Fire
+Hol Baumann - Breathe
+Hol Baumann - Hours
+Hol Baumann - Radio Bombay
+Lemonchill - Memorabilia
+Lemonchill - Reflections
+Koan - Sakura
+Koan - First Love
+
+## Prog / metal / darker detours
+Soen - Antagonist
+Soen - Lotus
+Soen - Monarch
+Soen - Martyrs
+Soen - River
+Katatonia - My Twin
+Katatonia - Lethean
+Katatonia - Dead Letters
+Katatonia - Old Heart Falls
+Katatonia - The Winter of Our Passing
+Draconian - Rivers Between Us
+Draconian - Pale Tortured Blue
+Burzum - Glemselens elv
+Burzum - Belus' død
+Drudkh - The Milky Way
+Drudkh - Blood - Кров
+Drudkh - Eternal Sun - Вiчне Сонце
+Korpiklaani - Ievan polkka
+Korpiklaani - Metsälle
+Korpiklaani - The Steel
+Korpiklaani - Husky Sledge
+U.D.O. - Heart of Gold
+U.D.O. - Cry Soldier Cry
+U.D.O. - They Want War
+U.D.O. - Trainride In Russia
+Accept - Princess of the Dawn
+Accept - Stalingrad
+Iron Maiden - The Wicker Man
+Iron Maiden - Brave New World
+Scorpions - Wind of Change
+Scorpions - Still Loving You
+Scorpions - Rock You Like a Hurricane
+Pink Floyd - Time
+Pink Floyd - Wish You Were Here
+Pink Floyd - Shine on You Crazy Diamond
+Pink Floyd - Hey You
+Pink Floyd - Another Brick in the Wall, Pt. 2
+Pink Floyd - High Hopes
+Porcupine Tree - Open Car
+Porcupine Tree - Blackest Eyes
+Riverside - The Depth of Self-Delusion
+Riverside - Conceiving You
+Ayreon - Comatose
+Ayreon - River of Time
+Opeth - Harvest
+Nightwish - Wish I Had an Angel
+Within Temptation - Angels
+Within Temptation - Faster
+Lacuna Coil - Swamped
+Tarja - My Little Phoenix
+
+## Random rediscovery shelf
+Korpiklaani - Ievan polkka
+CocoRosie - Werewolf
+CocoRosie - Rainbowarriors
+CocoRosie - By Your Side
+CocoRosie - Lemonade
+Regina Spektor - Fidelity
+Regina Spektor - Better
+Regina Spektor - You've Got Time
+Kings of Convenience - Me in You
+Kings of Convenience - Boat Behind
+Kings of Convenience - Mrs. Cold
+Kings of Convenience - I'd Rather Dance With You
+Morcheeba - Enjoy the Ride
+Morcheeba - Wonders Never Cease
+Morcheeba - Blood Like Lemonade
+Mike Oldfield - Moonlight Shadow
+Mike Oldfield - Tubular Bells - Pt. I
+Mike Oldfield - To France
+Mike Oldfield - Nuclear
+Chet Baker - The Thrill Is Gone
+Jeff Buckley - Grace
+Radiohead - Creep
+Radiohead - Karma Police
+Radiohead - No Surprises
+The Cranberries - Zombie
+R.E.M. - Losing My Religion
+R.E.M. - Everybody Hurts
+Depeche Mode - Enjoy the Silence - Single Mix
+Oasis - Wonderwall - Remastered
+Guns N' Roses - Don't Cry (Original)
+Guns N' Roses - Sweet Child o' Mine
+Bon Jovi - Livin' on a Prayer
+Heart - Barracuda
+Fleetwood Mac - The Chain - 2004 Remaster
+Céline Dion - My Heart Will Go On
+Evanescence - Bring Me to Life
+Evanescence - My Immortal
+Drowning Pool - Bodies
+Hoobastank - Crawling in the Dark
+Seether - Broken
+Seether - Remedy
+Saliva - Click Click Boom
+Trapt - Headstrong
+Slipknot - Duality
+Disturbed - The Sound of Silence
+The HU - Wolf Totem
+Gogol Bordello - Wonderlust King
+Gogol Bordello - Zina-Marina
+Go_A - Solovey
+DakhaBrakha - Пливе човен
