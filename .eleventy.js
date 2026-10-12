@@ -30,6 +30,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/og-default.svg": "og-default.svg" });
   eleventyConfig.addPassthroughCopy({ "src/og-default.png": "og-default.png" });
   eleventyConfig.addPassthroughCopy({ "src/og": "og" });
+  eleventyConfig.addPassthroughCopy({ "src/images": "images" });
 
   eleventyConfig.addGlobalData("site", {
     url: "https://olekk.com",
